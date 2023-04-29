@@ -2,11 +2,11 @@
 *.class
 
 # Jar archives
-.jar
+*.jar
 
 # Intellij files
-.idea
-.iml
+*.idea
+*.iml
 
 # Log file
 *.log
