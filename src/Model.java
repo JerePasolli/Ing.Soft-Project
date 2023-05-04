@@ -15,6 +15,11 @@ public class Model extends JPanel implements ActionListener {
     private boolean dying = false;
 
     private final int BLOCK_SIZE = 24;
+
+    public int getN_BLOCKS() {
+        return N_BLOCKS;
+    }
+
     private final int N_BLOCKS = 15;
     private final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
     private final int MAX_GHOSTS = 12;
@@ -24,7 +29,6 @@ public class Model extends JPanel implements ActionListener {
     private int lives, score;
     private int[] dx, dy;
     private int[] ghost_x, ghost_y, ghost_dx, ghost_dy, ghostSpeed;
-
     private Image heart, ghost;
     private Image up, down, left, right;
 
@@ -53,6 +57,7 @@ public class Model extends JPanel implements ActionListener {
     private final int maxSpeed = 6;
 
     private int currentSpeed = 3;
+
     private short[] screenData;
     private Timer timer;
 
@@ -72,10 +77,11 @@ public class Model extends JPanel implements ActionListener {
         left = new ImageIcon("././assets/images/left.gif").getImage();
         right = new ImageIcon("././assets/images/right.gif").getImage();
         ghost = new ImageIcon("././assets/images/ghost.gif").getImage();
-        heart = new ImageIcon("././assets/images/heart.gif").getImage();
+        heart = new ImageIcon("././assets/images/heart.png").getImage();
 
     }
-       private void initVariables() {
+
+    private void initVariables() {
 
         screenData = new short[N_BLOCKS * N_BLOCKS];
         d = new Dimension(400, 400);
@@ -91,7 +97,15 @@ public class Model extends JPanel implements ActionListener {
         timer.start();
     }
 
-    private void playGame(Graphics2D g2d) {
+    public boolean isDying() {
+        return dying;
+    }
+
+    public void setDying(boolean dying) {
+        this.dying = dying;
+    }
+
+    public void playGame(Graphics2D g2d) {
 
         if (dying) {
 
@@ -154,7 +168,7 @@ public class Model extends JPanel implements ActionListener {
         }
     }
 
-    private void death() {
+    public void death() {
 
     	lives--;
 
@@ -334,7 +348,27 @@ public class Model extends JPanel implements ActionListener {
         }
     }
 
-    private void initGame() {
+    public int getLives() {
+        return lives;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getN_GHOSTS() {
+        return N_GHOSTS;
+    }
+
+    public int getCurrentSpeed() {
+        return currentSpeed;
+    }
+
+    public void initGame() {
 
     	lives = 3;
         score = 0;
@@ -429,7 +463,7 @@ public class Model extends JPanel implements ActionListener {
                     req_dy = 1;
                 } else if (key == KeyEvent.VK_ESCAPE && timer.isRunning()) {
                     inGame = false;
-                } 
+                }
             } else {
                 if (key == KeyEvent.VK_SPACE) {
                     inGame = true;
@@ -443,6 +477,62 @@ public class Model extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
+    }
+
+    public int[] getGhost_x() {
+        return ghost_x;
+    }
+
+    public int[] getGhost_y() {
+        return ghost_y;
+    }
+
+    public int[] getGhost_dx() {
+        return ghost_dx;
+    }
+
+    public int[] getGhost_dy() {
+        return ghost_dy;
+    }
+
+    public int getMAX_GHOSTS() {
+        return MAX_GHOSTS;
+    }
+
+    public Image getHeart() {
+        return heart;
+    }
+
+    public Image getGhost() {
+        return ghost;
+    }
+
+    public Image getUp() {
+        return up;
+    }
+
+    public Image getDown() {
+        return down;
+    }
+
+    public Image getLeft() {
+        return left;
+    }
+
+    public Image getRight() {
+        return right;
+    }
+
+    public short[] getScreenData() {
+        return screenData;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public boolean isInGame() {
+        return inGame;
     }
 		
 }
