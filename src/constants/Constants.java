@@ -1,7 +1,8 @@
 package constants;
 
 public class Constants {
-    public static final int WIDHT = 400, HEIGHT = 400;
+    public static final int CANVAS_WIDTH = 400, CANVAS_HEIGHT = 400;
+    public static final int FRAME_WIDTH = 361, FRAME_HEIGHT = 392;
     public static final double FPS = 60;
     public static double TARGETTIME = 1000000000/FPS;
     public static final int BLOCK_SIZE = 24;
@@ -10,6 +11,5 @@ public class Constants {
     public static final int MAX_GHOSTS = 12;
     public static final int PACMAN_SPEED = 6;
     public static int N_GHOSTS = 6;
-
 
 }
