@@ -2,6 +2,7 @@ package gameObjects;
 
 import math.Vector2D;
 
+import javax.swing.*;
 import java.awt.*;
 
 public abstract class GameObject {
@@ -14,7 +15,7 @@ public abstract class GameObject {
         this.texture = texture;
     }
 
-    public abstract void update();
+    public abstract void update() throws AWTException;
     public abstract void draw(Graphics g);
 
     public Vector2D getPosition() {
