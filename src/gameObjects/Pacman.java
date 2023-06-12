@@ -16,6 +16,7 @@ public class Pacman extends MovingObject{
     public void update() {
         if(KeyBoard.RIGHT){
             texture = Assets.right;
+            if()
             position.setX(position.getX()+1.5);
         }
         else if(KeyBoard.LEFT){

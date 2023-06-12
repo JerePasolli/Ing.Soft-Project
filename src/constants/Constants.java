@@ -1,7 +1,7 @@
 package constants;
 
 public class Constants {
-    public static final int CANVAS_WIDTH = 400, CANVAS_HEIGHT = 400;
+    public static final int CANVAS_WIDTH = 920, CANVAS_HEIGHT = 540;
     public static final int FRAME_WIDTH = 361, FRAME_HEIGHT = 392;
     public static final double FPS = 60;
     public static double TARGETTIME = 1000000000/FPS;

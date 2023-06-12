@@ -42,7 +42,7 @@ public class Window extends JFrame implements Runnable{
 
     public Window(){
         setTitle("PACMAN");
-        setSize(Constants.FRAME_WIDTH,Constants.FRAME_HEIGHT);
+        setSize(Constants.CANVAS_WIDTH,Constants.CANVAS_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -93,7 +93,8 @@ public class Window extends JFrame implements Runnable{
 
         gameState.draw(g);
         Graphics2D g2d = (Graphics2D) g;
-        drawMaze(g2d);
+        //drawMaze(g2d);
+        paint(g2d);
         //g.drawString("holaque tal",45,45);
         //g.clearRect(0, 0, WIDTH, HEIGHT);
         //g.drawRect(x,0,100,100);
@@ -102,7 +103,36 @@ public class Window extends JFrame implements Runnable{
         g.dispose();
         bs.show();
     }
-
+    public void paint(Graphics2D grafico){
+        int[][] laberinto=obtenerLaberinto();
+        for(int i=0;i<13;i++){
+            for(int j=0;j<23;j++){
+                if(laberinto[i][j]==1){
+                    grafico.setColor(Color.BLUE);
+                    grafico.fillRect(j*40, i*40, 40, 40);
+                    grafico.setColor(Color.BLACK);
+                    grafico.drawRect(j*40, i*40, 40, 40);
+                }
+            }
+        }
+    }
+    public int[][] obtenerLaberinto(){
+        int laberinto[][]=
+            {{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            { 1,0,0,1,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,1,1},
+            { 1,1,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,1,0,1,1},
+            { 1,1,0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,1,0,1,1},
+            { 1,1,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,1,0,1,0,1,1},
+            { 1,1,0,0,1,0,1,0,1,1,1,0,1,0,1,0,0,0,0,1,0,1,1},
+            { 1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1,0,1,1,1,1},
+            { 1,1,0,1,0,0,0,0,1,0,0,0,1,0,0,1,1,1,0,1,0,1,1},
+            { 1,1,0,1,0,1,1,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,1},
+            { 1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,1,0,1,0,1,1},
+            { 1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,1},
+            { 1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1},
+            { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
+        return laberinto;
+    }
     private void drawMaze(Graphics2D g2d) {
 
         short i = 0;

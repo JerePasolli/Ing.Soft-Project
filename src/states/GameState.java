@@ -11,7 +11,7 @@ public class GameState {
     private Pacman pacman;
 
     public GameState(){
-        pacman = new Pacman(new Vector2D(10, 10), new Vector2D(3, 3), Assets.up);
+        pacman = new Pacman(new Vector2D(80, 80), new Vector2D(3, 3), Assets.up);
     }
 
     public void update(){
