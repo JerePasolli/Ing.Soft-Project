@@ -5,6 +5,7 @@ import gameObjects.Ghost;
 import gameObjects.MovingObject;
 import gameObjects.Pacman;
 import graphics.Assets;
+import graphics.Sound;
 import math.Vector2D;
 
 import javax.swing.*;
@@ -36,12 +37,15 @@ public class GameState extends State{
             17, 16, 16, 20, 0, 17, 16, 16, 16, 16, 16, 16, 16, 16, 20,
             25, 24, 24, 24, 26, 24, 24, 24, 24, 24, 24, 24, 24, 24, 28
     };
+    private Sound music;
 
     public GameState(){
         pacman = new Pacman(new Vector2D(10, 10), new Vector2D(Constants.PACMAN_SPEED, Constants.PACMAN_SPEED), Assets.left, this, screenData);
         movingObjects.add(pacman);
         ghostNumber = 4;
         startGhostsWave();
+        //music = new Sound(Assets.backgroundMusic);
+        //music.loopClip();
     }
 
     public void addScore(int x){

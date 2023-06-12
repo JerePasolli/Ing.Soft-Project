@@ -1,5 +1,6 @@
 package graphics;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,6 +17,7 @@ public class Assets {
     public static Font fontSmall;
     public static Image greyButton;
     public static Image yellowButton;
+    public static Clip backgroundMusic;
 
     public static void init(){
         down = Loader.ImageLoader("././res/images/down.gif");
@@ -29,5 +31,6 @@ public class Assets {
         fontSmall = Loader.FontLoader("././res/fonts/kenvector_future.ttf",10);
         greyButton = Loader.ImageLoader("././res/ui/grey_button00.png");
         yellowButton = Loader.ImageLoader("././res/ui/yellow_button00.png");
+        //backgroundMusic = Loader.SoundLoader("././res/sounds/pacman-song.mp3");
     }
 }

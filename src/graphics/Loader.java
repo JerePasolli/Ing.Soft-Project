@@ -1,5 +1,9 @@
 package graphics;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -18,5 +22,16 @@ public class Loader {
             e.printStackTrace();
             return null;
         }
+    }
+    public static Clip SoundLoader(String path){
+        try{
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(Loader.class.getResource(path)));
+            return clip;
+        }
+        catch(LineUnavailableException | IOException | UnsupportedAudioFileException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }
