@@ -20,6 +20,24 @@ public class GameState extends State{
     private short[] screenData;
     private int score = 0;
     private int lives = 3;
+    private boolean bool=true;
+    private final int[][] mapa={
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
+        {1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1},
+        {1, 2, 1, 1, 2, 1, 2, 1, 2, 1, 2, 1, 1, 2, 1},
+        {1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1},
+        {1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1},
+        {1, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 2, 1},
+        {1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1},
+        {0, 0, 0, 0, 0, 1, 3, 3, 3, 1, 0, 0, 0, 0, 0},
+        {1, 1, 1, 1, 0, 1, 3, 3, 3, 1, 0, 1, 1, 1, 1},
+        {1, 2, 2, 2, 0, 1, 1, 1, 1, 1, 0, 2, 2, 2, 1},
+        {1, 2, 1, 1, 0, 0, 0, 4, 0, 0, 0, 1, 1, 2, 1},
+        {1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1},
+        {1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1},
+        {1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    };
     private final short[] levelData = {
             19, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 22,
             17, 16, 16, 16, 16, 24, 16, 16, 16, 16, 16, 16, 16, 16, 20,
@@ -40,7 +58,7 @@ public class GameState extends State{
     private Sound music;
 
     public GameState(){
-        pacman = new Pacman(new Vector2D(10, 10), new Vector2D(Constants.PACMAN_SPEED, Constants.PACMAN_SPEED), Assets.left, this, screenData);
+        pacman = new Pacman(new Vector2D(7*Constants.BLOCK_SIZE, 10*Constants.BLOCK_SIZE), new Vector2D(Constants.PACMAN_SPEED, Constants.PACMAN_SPEED), Assets.left, this, screenData);
         movingObjects.add(pacman);
         ghostNumber = 4;
         startGhostsWave();
@@ -61,7 +79,7 @@ public class GameState extends State{
     }
 
     public void startGhostsWave(){
-        int x, y;
+       /*  int x, y;
 
         for(int i = 0; i < ghostNumber; i++){
             x = 20;
@@ -69,7 +87,7 @@ public class GameState extends State{
 
             Image texture = Assets.ghost;
             movingObjects.add(new Ghost(new Vector2D(x, y), new Vector2D(Constants.GHOST_SPEED, Constants.GHOST_SPEED), texture, this, this.screenData));
-        }
+        }*/
     }
 
     public void update(){
@@ -83,6 +101,32 @@ public class GameState extends State{
 
         }
     }
+    private void drawMap(Graphics2D g2d){
+        for(int i=0;i<Constants.N_BLOCKS;i++){
+            for(int j=0;j<Constants.N_BLOCKS;j++){
+                if(mapa[i][j]==1){
+                    g2d.setColor(Color.BLUE);
+                    g2d.fillRect(j*Constants.BLOCK_SIZE,i*Constants.BLOCK_SIZE,Constants.BLOCK_SIZE,Constants.BLOCK_SIZE);
+                    g2d.setColor(Color.BLACK);
+                    g2d.drawRect(j*Constants.BLOCK_SIZE,i*Constants.BLOCK_SIZE,Constants.BLOCK_SIZE,Constants.BLOCK_SIZE);
+                }
+                if(mapa[i][j]==2){
+                    //mejor crear una clase q se llame item
+                    g2d.setColor(Color.WHITE);
+                    g2d.fillOval(j*Constants.BLOCK_SIZE+Constants.BLOCK_SIZE/2,i*Constants.BLOCK_SIZE+Constants.BLOCK_SIZE/2, 6, 6);
+                }
+                if(mapa[i][j]==3){
+                    if(bool){
+                         Image texture = Assets.ghost;
+                        movingObjects.add(new Ghost(new Vector2D(j*Constants.BLOCK_SIZE,i*Constants.BLOCK_SIZE), new Vector2D(Constants.GHOST_SPEED, Constants.GHOST_SPEED), texture, this, this.screenData));
+                    }
+                   
+                }
+            }
+        }
+        bool=false;
+
+    }
 
     public void draw(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
@@ -91,7 +135,8 @@ public class GameState extends State{
         for (MovingObject movingObject : movingObjects) {
             movingObject.draw(g);
         }
-        drawMaze((Graphics2D) g);
+        //drawMaze((Graphics2D) g);
+        drawMap((Graphics2D) g);
         drawScoreAndLives(g);
     }
     public ArrayList<MovingObject> getMovingObjects() {
@@ -100,6 +145,9 @@ public class GameState extends State{
 
     public Pacman getPacman() {
         return pacman;
+    }
+    public int[][] getMapa(){
+        return mapa;
     }
 
     private void drawScoreAndLives(Graphics g) {
