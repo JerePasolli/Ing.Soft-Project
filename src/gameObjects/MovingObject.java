@@ -58,7 +58,7 @@ public abstract class MovingObject extends GameObject{
         return new Vector2D(position.getX() + (width / 2), position.getY() + (height / 2));
     }
 
-    protected void collidesWith(){
+    /*protected void collidesWith(){
         ArrayList<MovingObject> movingObjects = gameState.getMovingObjects();
         for (MovingObject m : movingObjects){
             if(m.equals(this)){
@@ -81,5 +81,5 @@ public abstract class MovingObject extends GameObject{
     protected void die(){
         gameState.getPacman().setPosition(new Vector2D(10, 10));
         gameState.susbtractLife();
-    }
+    }*/
 }

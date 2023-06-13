@@ -2,7 +2,6 @@ package input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Arrays;
 
 public class KeyBoard implements KeyListener {
 
@@ -24,14 +23,12 @@ public class KeyBoard implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-       // keys[e.getKeyCode()] = true;
-        Arrays.fill(keys,false);
-        keys[e.getKeyCode()]=true;
+        keys[e.getKeyCode()] = true;
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        //keys[e.getKeyCode()] = false;
+        keys[e.getKeyCode()] = false;
     }
 
     @Override

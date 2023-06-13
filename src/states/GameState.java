@@ -7,8 +7,6 @@ import gameObjects.Pacman;
 import graphics.Assets;
 import graphics.Sound;
 import math.Vector2D;
-
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -20,7 +18,7 @@ public class GameState extends State{
     private short[] screenData;
     private int score = 0;
     private int lives = 3;
-    private final short[] levelData = {
+    private final short[] levelData2 = {
             19, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 22,
             17, 16, 16, 16, 16, 24, 16, 16, 16, 16, 16, 16, 16, 16, 20,
             25, 24, 24, 24, 28, 0, 17, 16, 16, 16, 16, 16, 16, 16, 20,
@@ -37,27 +35,36 @@ public class GameState extends State{
             17, 16, 16, 20, 0, 17, 16, 16, 16, 16, 16, 16, 16, 16, 20,
             25, 24, 24, 24, 26, 24, 24, 24, 24, 24, 24, 24, 24, 24, 28
     };
+    private final short[] levelData = {
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 19, 26, 26, 18, 26, 22, 0, 19, 26, 18, 26, 26, 22, 0,
+            0, 21, 0, 0, 21, 0, 21, 0, 21, 0, 21, 0, 0, 21, 0,
+            0, 17,  26,  26,  16,  26, 24, 26, 24, 26, 16, 26, 26, 20, 0,
+            0, 21, 0, 0, 21, 0, 0, 0, 0, 0, 21, 0, 0, 21, 0,
+            0, 25, 26, 26, 16, 10, 10, 2, 10, 10, 16,  26,  26,   28, 0,
+            0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 5,  0,  0,   0, 0,
+            0, 11, 10, 10, 4, 0, 3, 16, 6, 0, 1,  10,  10,   14, 0,
+            0, 0, 0, 0, 5, 0, 9, 8, 12, 0, 5, 0, 0, 0, 0,
+            0, 19, 26, 26, 4, 0, 0, 0, 0, 0, 1, 26, 26, 22, 0,
+            0, 21,  0,  0,  1,  10,  10,   10, 10, 10, 4, 0, 0, 21, 0,
+            0, 17, 26, 26, 20, 0, 0, 0, 0, 0, 17,26,26, 20, 0,
+            0, 21, 0, 0, 21, 0, 0, 0, 0, 0, 21, 0, 0, 21, 0,
+            0, 25, 26, 26, 24, 26, 30, 0, 27, 26, 24, 26, 26, 28, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    };
     private Sound music;
 
     public GameState(){
-        pacman = new Pacman(new Vector2D(10, 10), new Vector2D(Constants.PACMAN_SPEED, Constants.PACMAN_SPEED), Assets.left, this, screenData);
-        movingObjects.add(pacman);
+        pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
+        //movingObjects.add(pacman);
         ghostNumber = 4;
         startGhostsWave();
         //music = new Sound(Assets.backgroundMusic);
         //music.loopClip();
-    }
-
-    public void addScore(int x){
-        score += x;
-    }
-
-    public void susbtractLife(){
-        lives --;
-    }
-
-    public int getLives(){
-        return lives;
+        screenData = new short[Constants.N_BLOCKS * Constants.N_BLOCKS];
+        for (int c = 0; c < Constants.N_BLOCKS * Constants.N_BLOCKS; c++) {
+            screenData[c] = levelData[c];
+        }
     }
 
     public void startGhostsWave(){
@@ -82,8 +89,9 @@ public class GameState extends State{
             }
 
         }
+        pacman.update();
     }
-
+    //---------------------------DRAW-----------------------------------
     public void draw(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -91,15 +99,9 @@ public class GameState extends State{
         for (MovingObject movingObject : movingObjects) {
             movingObject.draw(g);
         }
+        pacman.drawPacman(g);
         drawMaze((Graphics2D) g);
         drawScoreAndLives(g);
-    }
-    public ArrayList<MovingObject> getMovingObjects() {
-        return movingObjects;
-    }
-
-    public Pacman getPacman() {
-        return pacman;
     }
 
     private void drawScoreAndLives(Graphics g) {
@@ -117,11 +119,6 @@ public class GameState extends State{
 
         short i = 0;
         int x, y;
-        screenData = new short[Constants.N_BLOCKS * Constants.N_BLOCKS];
-        for (int c = 0; c < Constants.N_BLOCKS * Constants.N_BLOCKS; c++) {
-            screenData[c] = levelData[c];
-        }
-
         for (y = 0; y < Constants.SCREEN_SIZE; y += Constants.BLOCK_SIZE) {
             for (x = 0; x < Constants.SCREEN_SIZE; x += Constants.BLOCK_SIZE) {
 
@@ -159,5 +156,35 @@ public class GameState extends State{
             }
         }
 
+    }
+    //----------CONTROL DE VIDA Y PUNTAJE-------------
+    public void addScore(int x){
+        score += x;
+    }
+
+    public void susbtractLife(){
+        lives --;
+    }
+
+    //--------------GETTERS Y SETTERS-------------------
+
+    public short[] getScreenData(){
+        return this.screenData;
+    }
+
+    public void setScreenData(int pos,short value){
+        this.screenData[pos]=value;
+    }
+
+    public int getLives(){
+        return lives;
+    }
+
+    public ArrayList<MovingObject> getMovingObjects() {
+        return movingObjects;
+    }
+
+    public Pacman getPacman() {
+        return pacman;
     }
 }

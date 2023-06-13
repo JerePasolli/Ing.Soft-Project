@@ -9,57 +9,81 @@ import states.GameState;
 import javax.swing.*;
 import java.awt.*;
 
-public class Pacman extends MovingObject{
-    public Pacman(Vector2D position, Vector2D velocity, Image texture, GameState gameState, short[] screenData) {
-        super(position, velocity, texture, gameState, screenData);
+public class Pacman {
+    private int pacman_x,pacman_y,pacmand_x,pacmand_y;
+    private int req_dx,req_dy;
+    private GameState gameState;
+    private Image texture;
+
+    public Pacman(int pacman_x,int pacman_y,Image texture,GameState gameState){
+        this.pacman_x=pacman_x;
+        this.pacman_y=pacman_y;
+        this.texture=texture;
+        this.gameState=gameState;
+        this.pacmand_x=0;
+        this.pacmand_y=0;
     }
 
-    @Override
-    public void update() throws AWTException {
-
+    public void update(){
+        if(KeyBoard.LEFT){
+            texture=Assets.left;
+            req_dx=-1;
+            req_dy=0;
+        }
         if(KeyBoard.RIGHT){
-            texture = Assets.right;
-            position = position.addX(velocity);
+            texture=Assets.right;
+            req_dx=1;
+            req_dy=0;
         }
-        else if(KeyBoard.LEFT){
-            texture = Assets.left;
-            position = position.substractX(velocity);
+        if(KeyBoard.UP){
+            texture=Assets.up;
+            req_dx=0;
+            req_dy=-1;
         }
-        else if(KeyBoard.UP){
-            texture = Assets.up;
-            position = position.substractY(velocity);
+        if(KeyBoard.DOWN){
+            texture=Assets.down;
+            req_dx=0;
+            req_dy=1;
         }
-        else if(KeyBoard.DOWN){
-            texture = Assets.down;
-            position = position.addY(velocity);
-        }
+        movePacman();
+    }
+    public void movePacman(){
+        int pos;
+        short ch;
 
-        if(position.getX() > Constants.CANVAS_WIDTH){
-            position.setX(0);
-        }
-        if(position.getY() > Constants.CANVAS_HEIGHT){
-            position.setY(0);
-        }
-        if(position.getX() < 0){
-            position.setX(Constants.CANVAS_WIDTH);
-        }
-        if(position.getY() < 0){
-            position.setY(Constants.CANVAS_HEIGHT);
-        }
+        if (pacman_x % Constants.BLOCK_SIZE == 0 && pacman_y % Constants.BLOCK_SIZE == 0) {
+            pos = pacman_x / Constants.BLOCK_SIZE + Constants.N_BLOCKS * (int) (pacman_y / Constants.BLOCK_SIZE);
+            ch = gameState.getScreenData()[pos];
 
-        if(isValidMove(position.getX(), position.getY())){
-        }
+            if ((ch & 16) != 0) {
+                gameState.setScreenData(pos,(short)(ch & 15));
+                gameState.addScore(1);
+            }
 
-        if(isWhiteDot(position.getX(), position.getY())){
-            gameState.addScore(10);
-        }
+            if (req_dx != 0 || req_dy != 0) {
+                if (!((req_dx == -1 && req_dy == 0 && (ch & 1) != 0)
+                        || (req_dx == 1 && req_dy == 0 && (ch & 4) != 0)
+                        || (req_dx == 0 && req_dy == -1 && (ch & 2) != 0)
+                        || (req_dx == 0 && req_dy == 1 && (ch & 8) != 0))) {
+                    pacmand_x = req_dx;
+                    pacmand_y = req_dy;
+                }
+            }
 
-        collidesWith();
-
+            // Check for standstill
+            if ((pacmand_x == -1 && pacmand_y == 0 && (ch & 1) != 0)
+                    || (pacmand_x == 1 && pacmand_y == 0 && (ch & 4) != 0)
+                    || (pacmand_x == 0 && pacmand_y == -1 && (ch & 2) != 0)
+                    || (pacmand_x == 0 && pacmand_y == 1 && (ch & 8) != 0)) {
+                pacmand_x = 0;
+                pacmand_y = 0;
+            }
+        } 
+        pacman_x = pacman_x + Constants.PACMAN_SPEED * pacmand_x;
+        pacman_y = pacman_y + Constants.PACMAN_SPEED * pacmand_y;
+    }
+    public void drawPacman(Graphics g){
+        g.drawImage(texture,pacman_x+1,pacman_y+1,null);
     }
 
-    @Override
-    public void draw(Graphics g) {
-        g.drawImage(texture, (int)position.getX(), (int)position.getY(), null);
-    }
 }
