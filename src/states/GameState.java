@@ -14,7 +14,7 @@ import input.KeyBoard;
 public class GameState extends State{
 
     private Pacman pacman;
-    private final ArrayList<MovingObject> movingObjects = new ArrayList<MovingObject>();
+    private final ArrayList<Ghost> fantasmas = new ArrayList<Ghost>();
     private int ghostNumber;
     private short[] screenData;
     private int score = 0;
@@ -57,7 +57,6 @@ public class GameState extends State{
 
     public GameState(){
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
-        //movingObjects.add(pacman);
         ghostNumber = 4;
         //startGhostsWave();
         //music = new Sound(Assets.backgroundMusic);
@@ -66,29 +65,21 @@ public class GameState extends State{
         for (int c = 0; c < Constants.N_BLOCKS * Constants.N_BLOCKS; c++) {
             screenData[c] = levelData[c];
         }
+        
     }
 
-    /*public void startGhostsWave(){
-        int x, y;
-
-        for(int i = 0; i < ghostNumber; i++){
-            x = 20;
-            y = 65;
-
-            Image texture = Assets.ghost;
-            movingObjects.add(new Ghost(new Vector2D(x, y), new Vector2D(Constants.GHOST_SPEED, Constants.GHOST_SPEED), texture, this, this.screenData));
+    public void startGhostsWave(){
+        for(int i=0;i<ghostNumber;i++){
+            fantasmas.get(i).setPosition(4*Constants.BLOCK_SIZE, 4*Constants.BLOCK_SIZE);
+            fantasmas.get(i).setDx(1);
+            fantasmas.get(i).setDy(0);
+            fantasmas.get(i).setSpeed(Constants.GHOST_SPEED);
         }
-    }*/
+    }
 
     public void update(){
-        for (MovingObject movingObject : movingObjects) {
-            try{
-                movingObject.update();
-            }
-            catch(AWTException e){
-                e.printStackTrace();
-            }
-
+        for (Ghost ghost : fantasmas) {
+                ghost.update();
         }
             if(KeyBoard.ESCAPE){
                 changeState(new PauseState(this));
@@ -100,10 +91,10 @@ public class GameState extends State{
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
-        for (MovingObject movingObject : movingObjects) {
-            movingObject.draw(g);
+        for (Ghost ghost : fantasmas) {
+            ghost.draw(g);
         }
-        pacman.drawPacman(g);
+        pacman.draw(g);
         drawMaze((Graphics2D) g);
         drawScoreAndLives(g);
     }
@@ -184,8 +175,8 @@ public class GameState extends State{
         return lives;
     }
 
-    public ArrayList<MovingObject> getMovingObjects() {
-        return movingObjects;
+    public ArrayList<Ghost> getFantasmas() {
+        return fantasmas;
     }
 
     public Pacman getPacman() {

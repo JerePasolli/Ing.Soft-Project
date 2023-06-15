@@ -19,4 +19,11 @@ public abstract class MovingObject extends GameObject{
     public void draw(Graphics g) {
 
     }
+    
+    public void setDx(int dx){
+        this.dx=dx;
+    }
+    public void setDy(int dy){
+        this.dy=dy;
+    }
 }

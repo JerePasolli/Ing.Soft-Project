@@ -75,7 +75,7 @@ public class Pacman extends MovingObject{
         this.x = this.x + Constants.PACMAN_SPEED * dx;
         this.y = this.y + Constants.PACMAN_SPEED * dy;
     }
-    public void drawPacman(Graphics g){
+    public void draw(Graphics g){
         g.drawImage(texture,x+1,y+1,null);
     }
 
