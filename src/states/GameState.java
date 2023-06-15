@@ -9,6 +9,7 @@ import graphics.Sound;
 import math.Vector2D;
 import java.awt.*;
 import java.util.ArrayList;
+import input.KeyBoard;
 
 public class GameState extends State{
 
@@ -18,7 +19,7 @@ public class GameState extends State{
     private short[] screenData;
     private int score = 0;
     private int lives = 3;
-    private final short[] levelData2 = {
+    /*private final short[] levelData2 = {
             19, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 22,
             17, 16, 16, 16, 16, 24, 16, 16, 16, 16, 16, 16, 16, 16, 20,
             25, 24, 24, 24, 28, 0, 17, 16, 16, 16, 16, 16, 16, 16, 20,
@@ -34,7 +35,7 @@ public class GameState extends State{
             17, 16, 16, 20, 0, 17, 16, 16, 16, 16, 16, 16, 16, 16, 20,
             17, 16, 16, 20, 0, 17, 16, 16, 16, 16, 16, 16, 16, 16, 20,
             25, 24, 24, 24, 26, 24, 24, 24, 24, 24, 24, 24, 24, 24, 28
-    };
+    };*/
     private final short[] levelData = {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 19, 26, 26, 18, 26, 22, 0, 19, 26, 18, 26, 26, 22, 0,
@@ -89,6 +90,9 @@ public class GameState extends State{
             }
 
         }
+            if(KeyBoard.ESCAPE){
+                changeState(new PauseState(this));
+            }
         pacman.update();
     }
     //---------------------------DRAW-----------------------------------
