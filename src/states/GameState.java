@@ -2,7 +2,6 @@ package states;
 
 import constants.Constants;
 import gameObjects.Ghost;
-import gameObjects.MovingObject;
 import gameObjects.Pacman;
 import graphics.Assets;
 import graphics.Sound;
@@ -66,14 +65,13 @@ public class GameState extends State{
         for (int c = 0; c < Constants.N_BLOCKS * Constants.N_BLOCKS; c++) {
             screenData[c] = levelData[c];
         }
+        dx=new int[4];
         
     }
 
     public void startGhostsWave(){
         for(int i=0;i<ghostNumber;i++){
             fantasmas.get(i).setPosition(4*Constants.BLOCK_SIZE, 4*Constants.BLOCK_SIZE);
-            fantasmas.get(i).setDx(1);
-            fantasmas.get(i).setDy(0);
             fantasmas.get(i).setSpeed(Constants.GHOST_SPEED);
         }
     }

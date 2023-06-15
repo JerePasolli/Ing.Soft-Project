@@ -6,7 +6,7 @@ import java.awt.Image;
 
 import constants.Constants;
 
-public class Ghost extends MovingObject{
+public class Ghost extends GameObject{
     private int deqx,deqy,speed;
     public Ghost(int x,int y,Image texture, GameState gameState,int speed){
         super(x,y,texture,gameState);

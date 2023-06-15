@@ -8,7 +8,7 @@ import states.GameState;
 
 import java.awt.*;
 
-public class Pacman extends MovingObject{
+public class Pacman extends GameObject{
     private int req_dx,req_dy;
 
     public Pacman(int pacman_x,int pacman_y,Image texture,GameState gameState){
