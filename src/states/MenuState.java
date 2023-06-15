@@ -18,26 +18,34 @@ public class MenuState extends State {
 
         buttons.add(new Button(Assets.greyButton, Assets.yellowButton,
                 Constants.CANVAS_WIDTH / 2 - new ImageIcon(Assets.greyButton).getIconWidth() / 2,
-                Constants.CANVAS_HEIGHT / 2 - new ImageIcon(Assets.greyButton).getIconHeight(),
+                Constants.CANVAS_HEIGHT / 2 - new ImageIcon(Assets.greyButton).getIconHeight() * 3,
                 Constants.PLAY,
-                new Action(){
-                    @Override
-                    public void doAction(){
-                        State.changeState(new GameState());
-                    }
-                }
-                ));
+                () -> State.changeState(new GameState())
+        ));
 
         buttons.add(new Button(Assets.greyButton, Assets.yellowButton,
                 Constants.CANVAS_WIDTH / 2 - new ImageIcon(Assets.greyButton).getIconWidth() / 2,
-                Constants.CANVAS_HEIGHT / 2 + new ImageIcon(Assets.greyButton).getIconHeight() / 2,
+                Constants.CANVAS_HEIGHT / 2 + new ImageIcon(Assets.greyButton).getIconHeight() * 3,
                 Constants.EXIT,
-                new Action(){
-                    @Override
-                    public void doAction(){
-                        System.exit(0);
-                    }
-                }
+                () -> System.exit(0)
+        ));
+
+        buttons.add(new Button(
+                Assets.greyButton,
+                Assets.yellowButton,
+                Constants.CANVAS_WIDTH / 2 - new ImageIcon(Assets.greyButton).getIconWidth() / 2,
+                Constants.CANVAS_HEIGHT / 2 - 50,
+                Constants.HIGH_SCORES,
+                () -> State.changeState(new ScoreState())
+        ));
+
+        buttons.add(new Button(
+                Assets.greyButton,
+                Assets.yellowButton,
+                Constants.CANVAS_WIDTH / 2 - new ImageIcon(Assets.greyButton).getIconWidth() / 2,
+                Constants.CANVAS_HEIGHT / 2 + 50,
+                Constants.HELP,
+                () -> State.changeState(new HelpState())
         ));
     }
 
