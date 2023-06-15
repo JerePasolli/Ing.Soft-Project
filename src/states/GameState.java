@@ -53,15 +53,12 @@ public class GameState extends State{
             0, 25, 26, 26, 24, 26, 30, 0, 27, 26, 24, 26, 26, 28, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
-    private Sound music;
 
     public GameState(){
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
         //movingObjects.add(pacman);
         ghostNumber = 4;
         startGhostsWave();
-        //music = new Sound(Assets.backgroundMusic);
-        //music.loopClip();
         screenData = new short[Constants.N_BLOCKS * Constants.N_BLOCKS];
         for (int c = 0; c < Constants.N_BLOCKS * Constants.N_BLOCKS; c++) {
             screenData[c] = levelData[c];

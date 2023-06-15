@@ -2,6 +2,7 @@ package states;
 
 import constants.Constants;
 import graphics.Assets;
+import graphics.Sound;
 import ui.Action;
 import ui.Button;
 
@@ -47,6 +48,9 @@ public class MenuState extends State {
                 Constants.HELP,
                 () -> State.changeState(new HelpState())
         ));
+
+        Sound music = new Sound(Assets.backgroundMusic);
+        music.loopClip();
     }
 
     @Override

@@ -3,6 +3,7 @@ package graphics;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.nio.file.Paths;
 
 public class Assets {
 
@@ -26,11 +27,11 @@ public class Assets {
         right = Loader.ImageLoader("././res/images/right.gif");
         ghost = Loader.ImageLoader("././res/images/ghost.gif");
         heart = Loader.ImageLoader("././res/images/heart.png");
-        //fontBig = Loader.FontLoader("././res/fonts/kenvector_future.ttf",42);
-        //fontMed = Loader.FontLoader("././res/fonts/kenvector_future.ttf",20);
-        //fontSmall = Loader.FontLoader("././res/fonts/kenvector_future.ttf",10);
+        fontBig = Loader.FontLoader("././res/fonts/kenvector_future.ttf",42);
+        fontMed = Loader.FontLoader("././res/fonts/kenvector_future.ttf",20);
+        fontSmall = Loader.FontLoader("././res/fonts/kenvector_future.ttf",10);
         greyButton = Loader.ImageLoader("././res/ui/grey_button00.png");
         yellowButton = Loader.ImageLoader("././res/ui/yellow_button00.png");
-        //backgroundMusic = Loader.SoundLoader("././res/sounds/pacman-song.mp3");
+        backgroundMusic = Loader.SoundLoader("././res/sounds/pacman-song.wav");
     }
 }

@@ -24,6 +24,7 @@ public class Constants {
     public static final String SCORE = "SCORE";
     public static final String DATE = "DATE";
     public static final String HELP = "HELP";
+    public static final String MAIN_MENU = "MAIN MENU";
     public static final String HELPLINE1 = "Controles: Flechas del teclado";
     public static final String HELPLINE2 = "Objetivo: Comer todos los puntos blancos del escenario";
     public static final String HELPLINE3 = "Colisionar con un fantasma le hará perder una vida";
