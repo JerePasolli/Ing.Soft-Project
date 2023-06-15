@@ -59,7 +59,7 @@ public class GameState extends State{
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
         //movingObjects.add(pacman);
         ghostNumber = 4;
-        startGhostsWave();
+        //startGhostsWave();
         //music = new Sound(Assets.backgroundMusic);
         //music.loopClip();
         screenData = new short[Constants.N_BLOCKS * Constants.N_BLOCKS];
@@ -68,7 +68,7 @@ public class GameState extends State{
         }
     }
 
-    public void startGhostsWave(){
+    /*public void startGhostsWave(){
         int x, y;
 
         for(int i = 0; i < ghostNumber; i++){
@@ -78,7 +78,7 @@ public class GameState extends State{
             Image texture = Assets.ghost;
             movingObjects.add(new Ghost(new Vector2D(x, y), new Vector2D(Constants.GHOST_SPEED, Constants.GHOST_SPEED), texture, this, this.screenData));
         }
-    }
+    }*/
 
     public void update(){
         for (MovingObject movingObject : movingObjects) {

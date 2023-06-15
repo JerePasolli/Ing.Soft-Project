@@ -1,28 +1,31 @@
 package gameObjects;
-
-import math.Vector2D;
-
-import javax.swing.*;
 import java.awt.*;
+
+import states.GameState;
 
 public abstract class GameObject {
 
     protected Image texture;
-    protected Vector2D position;
+    protected int x,y;
 
-    public GameObject(Vector2D position, Image texture){
-        this.position = position;
+    public GameObject(int x,int y, Image texture){
+        this.x=x;
+        this.y=y;
         this.texture = texture;
     }
 
     public abstract void update() throws AWTException;
     public abstract void draw(Graphics g);
 
-    public Vector2D getPosition() {
-        return position;
+    public int getX() {
+        return x;
+    }
+     public int getY() {
+        return y;
     }
 
-    public void setPosition(Vector2D position) {
-        this.position = position;
+    public void setPosition(int x,int y) {
+        this.x=x;
+        this.y=y;
     }
 }
