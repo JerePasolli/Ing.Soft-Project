@@ -2,26 +2,19 @@ package gameObjects;
 
 import graphics.Assets;
 import input.KeyBoard;
-import math.Vector2D;
 import constants.Constants;
 import states.GameState;
 
-import javax.swing.*;
+
 import java.awt.*;
 
-public class Pacman {
-    private int pacman_x,pacman_y,pacmand_x,pacmand_y;
+public class Pacman extends GameObject{
     private int req_dx,req_dy;
-    private GameState gameState;
-    private Image texture;
 
     public Pacman(int pacman_x,int pacman_y,Image texture,GameState gameState){
-        this.pacman_x=pacman_x;
-        this.pacman_y=pacman_y;
-        this.texture=texture;
-        this.gameState=gameState;
-        this.pacmand_x=0;
-        this.pacmand_y=0;
+        super(pacman_x,pacman_y,texture,gameState);
+        this.dx=0;
+        this.dy=0;
     }
 
     public void update(){
@@ -51,8 +44,8 @@ public class Pacman {
         int pos;
         short ch;
 
-        if (pacman_x % Constants.BLOCK_SIZE == 0 && pacman_y % Constants.BLOCK_SIZE == 0) {
-            pos = pacman_x / Constants.BLOCK_SIZE + Constants.N_BLOCKS * (int) (pacman_y / Constants.BLOCK_SIZE);
+        if (this.x % Constants.BLOCK_SIZE == 0 && this.y % Constants.BLOCK_SIZE == 0) {
+            pos = this.x / Constants.BLOCK_SIZE + Constants.N_BLOCKS * (int) (this.y / Constants.BLOCK_SIZE);
             ch = gameState.getScreenData()[pos];
 
             if ((ch & 16) != 0) {
@@ -65,25 +58,25 @@ public class Pacman {
                         || (req_dx == 1 && req_dy == 0 && (ch & 4) != 0)
                         || (req_dx == 0 && req_dy == -1 && (ch & 2) != 0)
                         || (req_dx == 0 && req_dy == 1 && (ch & 8) != 0))) {
-                    pacmand_x = req_dx;
-                    pacmand_y = req_dy;
+                    dx = req_dx;
+                    dy= req_dy;
                 }
             }
 
             // Check for standstill
-            if ((pacmand_x == -1 && pacmand_y == 0 && (ch & 1) != 0)
-                    || (pacmand_x == 1 && pacmand_y == 0 && (ch & 4) != 0)
-                    || (pacmand_x == 0 && pacmand_y == -1 && (ch & 2) != 0)
-                    || (pacmand_x == 0 && pacmand_y == 1 && (ch & 8) != 0)) {
-                pacmand_x = 0;
-                pacmand_y = 0;
+            if ((dx == -1 && dy== 0 && (ch & 1) != 0)
+                    || (dx == 1 && dy == 0 && (ch & 4) != 0)
+                    || (dx == 0 && dy == -1 && (ch & 2) != 0)
+                    || (dx == 0 && dy == 1 && (ch & 8) != 0)) {
+                dx = 0;
+                dy = 0;
             }
         } 
-        pacman_x = pacman_x + Constants.PACMAN_SPEED * pacmand_x;
-        pacman_y = pacman_y + Constants.PACMAN_SPEED * pacmand_y;
+        this.x = this.x + Constants.PACMAN_SPEED * dx;
+        this.y = this.y + Constants.PACMAN_SPEED * dy;
     }
-    public void drawPacman(Graphics g){
-        g.drawImage(texture,pacman_x+1,pacman_y+1,null);
+    public void draw(Graphics g){
+        g.drawImage(texture,x+1,y+1,null);
     }
 
 }

@@ -1,61 +1,42 @@
 package gameObjects;
 
-import constants.Constants;
-import math.Vector2D;
 import states.GameState;
+import java.awt.Graphics;
+import java.awt.Image;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.Random;
+import constants.Constants;
 
-public class Ghost extends MovingObject{
-
-    private Random random;
-
-    public Ghost(Vector2D position, Vector2D velocity, Image texture, GameState gameState, short[] screenData) {
-        super(position, velocity, texture, gameState, screenData);
-        random = new Random();
+public class Ghost extends GameObject{
+    private int deqx,deqy,speed;
+    public Ghost(int x,int y,Image texture, GameState gameState,int speed){
+        super(x,y,texture,gameState);
+        this.dx=0;
+        this.dy=0;
     }
 
    @Override
-   public void update() throws AWTException {
-
-        int randomDirection = random.nextInt(4);
-
-       switch (randomDirection) {
-           case 0 ->
-               // Mover hacia derecha
-                   position = position.addX(velocity);
-           case 1 ->
-               // Mover hacia izquierda
-                   position = position.substractX(velocity);
-           case 2 ->
-               // Mover hacia arriba
-                   position = position.substractY(velocity);
-           case 3 ->
-               // Mover hacia abajo
-                   position = position.addY(velocity);
-       }
-
-
-        if(position.getX() > Constants.CANVAS_WIDTH){
-            position.setX(0);
-        }
-        if(position.getY() > Constants.CANVAS_HEIGHT){
-            position.setY(0);
-        }
-        if(position.getX() < 0){
-            position.setX(Constants.CANVAS_WIDTH);
-        }
-        if(position.getY() < 0){
-            position.setY(Constants.CANVAS_HEIGHT);
-        }
-
+   public void update(){
+        moveGhost();
    }
 
    @Override
    public void draw(Graphics g) {
-       g.drawImage(texture, (int)position.getX(), (int)position.getY(), null);
+       
+   }
+   public void setSpeed(int speed){
+        this.speed=speed;
+   }
+
+   public void moveGhost(){
+        int pos,count;
+        if(this.x % Constants.BLOCK_SIZE==0 && this.y % Constants.BLOCK_SIZE==0){
+            pos=this.x/Constants.BLOCK_SIZE+Constants.N_BLOCKS*(int) (this.y/Constants.BLOCK_SIZE);
+            count=0;
+            if((gameState.getScreenData()[pos] & 1)==0 && this.dx!=1){
+                
+            }
+
+        }
    }
 
 }
