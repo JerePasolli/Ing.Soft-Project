@@ -19,6 +19,7 @@ public class GameState extends State{
     private short[] screenData;
     private int score = 0;
     private int lives = 3;
+    public int[] dx,dy;
     /*private final short[] levelData2 = {
             19, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 22,
             17, 16, 16, 16, 16, 24, 16, 16, 16, 16, 16, 16, 16, 16, 20,
