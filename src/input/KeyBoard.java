@@ -6,12 +6,15 @@ import java.awt.event.KeyListener;
 public class KeyBoard implements KeyListener {
 
     private final boolean[] keys = new boolean[256];
-    public static boolean UP, DOWN, LEFT, RIGHT;
+    public static boolean UP, DOWN, LEFT, RIGHT, ESCAPE, SPACE;
     public KeyBoard(){
         UP = false;
         DOWN = false;
         RIGHT = false;
         LEFT = false;
+        ESCAPE = false;
+        SPACE = false;
+
     }
 
     public void update(){
@@ -19,6 +22,8 @@ public class KeyBoard implements KeyListener {
         DOWN = keys[KeyEvent.VK_DOWN];
         LEFT = keys[KeyEvent.VK_LEFT];
         RIGHT = keys[KeyEvent.VK_RIGHT];
+        ESCAPE = keys[KeyEvent.VK_ESCAPE];
+        SPACE = keys[KeyEvent.VK_SPACE];
     }
 
     @Override

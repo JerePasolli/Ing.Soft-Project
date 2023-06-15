@@ -17,5 +17,7 @@ public class Constants {
     public static int N_GHOSTS = 6;
     public static final String PLAY = "PLAY";
     public static final String EXIT = "EXIT";
+    public static final String RESUME = "RESUME";
+    public static final String PAUSE = "PAUSE";
 
 }
