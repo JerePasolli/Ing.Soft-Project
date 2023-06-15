@@ -19,5 +19,13 @@ public class Constants {
     public static final String EXIT = "EXIT";
     public static final String RESUME = "RESUME";
     public static final String PAUSE = "PAUSE";
-
+    public static final String RETURN = "RETURN";
+    public static final String HIGH_SCORES = "HIGH SCORES";
+    public static final String SCORE = "SCORE";
+    public static final String DATE = "DATE";
+    public static final String HELP = "HELP";
+    public static final String HELPLINE1 = "Controles: Flechas del teclado";
+    public static final String HELPLINE2 = "Objetivo: Comer todos los puntos blancos del escenario";
+    public static final String HELPLINE3 = "Colisionar con un fantasma le hará perder una vida";
+    public static final String HELPLINE4 = "Cuenta con 3 vidas, al perder todas finaliza el juego";
 }

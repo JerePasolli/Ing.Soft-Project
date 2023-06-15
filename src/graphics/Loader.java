@@ -14,7 +14,7 @@ public class Loader {
     public static Image ImageLoader(String path){
         return new ImageIcon(path).getImage();
     }
-    public static Font FontLoader(String path, int size){
+    /*public static Font FontLoader(String path, int size){
         try{
             return Font.createFont(Font.TRUETYPE_FONT, Loader.class.getResourceAsStream(path)).deriveFont(Font.PLAIN, size);
         }
@@ -33,5 +33,5 @@ public class Loader {
             e.printStackTrace();
         }
         return null;
-    }
+    }*/
 }
