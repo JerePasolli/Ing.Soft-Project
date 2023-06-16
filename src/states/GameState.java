@@ -2,11 +2,9 @@ package states;
 
 import constants.Constants;
 import gameObjects.Ghost;
-import gameObjects.MovingObject;
 import gameObjects.Pacman;
 import graphics.Assets;
-import graphics.Sound;
-import math.Vector2D;
+
 import java.awt.*;
 import java.util.ArrayList;
 import input.KeyBoard;
@@ -14,7 +12,7 @@ import input.KeyBoard;
 public class GameState extends State{
 
     private Pacman pacman;
-    private final ArrayList<MovingObject> movingObjects = new ArrayList<MovingObject>();
+    private Ghost ghosts;
     private int ghostNumber;
     private short[] screenData;
     private int score = 0;
@@ -57,15 +55,15 @@ public class GameState extends State{
     public GameState(){
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
         //movingObjects.add(pacman);
-        ghostNumber = 4;
-        startGhostsWave();
+      
+        ghosts = new Ghost(Assets.ghost,this);
         screenData = new short[Constants.N_BLOCKS * Constants.N_BLOCKS];
         for (int c = 0; c < Constants.N_BLOCKS * Constants.N_BLOCKS; c++) {
             screenData[c] = levelData[c];
         }
     }
 
-    public void startGhostsWave(){
+   /* public void startGhostsWave(){
         int x, y;
 
         for(int i = 0; i < ghostNumber; i++){
@@ -75,32 +73,26 @@ public class GameState extends State{
             Image texture = Assets.ghost;
             movingObjects.add(new Ghost(new Vector2D(x, y), new Vector2D(Constants.GHOST_SPEED, Constants.GHOST_SPEED), texture, this, this.screenData));
         }
-    }
+    }*/
 
-    public void update(){
-        for (MovingObject movingObject : movingObjects) {
-            try{
-                movingObject.update();
-            }
-            catch(AWTException e){
-                e.printStackTrace();
-            }
+    public void update() {
 
+        if(KeyBoard.ESCAPE){
+            changeState(new PauseState(this));
         }
-            if(KeyBoard.ESCAPE){
-                changeState(new PauseState(this));
-            }
         pacman.update();
+        ghosts.update();
     }
     //---------------------------DRAW-----------------------------------
     public void draw(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
-        for (MovingObject movingObject : movingObjects) {
+        /*for (MovingObject movingObject : movingObjects) {
             movingObject.draw(g);
-        }
-        pacman.drawPacman(g);
+        }*/
+        pacman.draw(g);
+        ghosts.draw(g);
         drawMaze((Graphics2D) g);
         drawScoreAndLives(g);
     }
@@ -179,10 +171,6 @@ public class GameState extends State{
 
     public int getLives(){
         return lives;
-    }
-
-    public ArrayList<MovingObject> getMovingObjects() {
-        return movingObjects;
     }
 
     public Pacman getPacman() {
