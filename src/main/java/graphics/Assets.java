@@ -21,17 +21,17 @@ public class Assets {
     public static Clip backgroundMusic;
 
     public static void init(){
-        down = Loader.ImageLoader("././res/images/down.gif");
-        up = Loader.ImageLoader("././res/images/up.gif");
-        left = Loader.ImageLoader("././res/images/left.gif");
-        right = Loader.ImageLoader("././res/images/right.gif");
-        ghost = Loader.ImageLoader("././res/images/ghost.gif");
-        heart = Loader.ImageLoader("././res/images/heart.png");
-        fontBig = Loader.FontLoader("././res/fonts/kenvector_future.ttf",42);
-        fontMed = Loader.FontLoader("././res/fonts/kenvector_future.ttf",20);
-        fontSmall = Loader.FontLoader("././res/fonts/kenvector_future.ttf",10);
-        greyButton = Loader.ImageLoader("././res/ui/grey_button00.png");
-        yellowButton = Loader.ImageLoader("././res/ui/yellow_button00.png");
-        backgroundMusic = Loader.SoundLoader("././res/sounds/pacman-song.wav");
+        down = Loader.ImageLoader("src/main/resources/images/down.gif");
+        up = Loader.ImageLoader("src/main/resources/images/up.gif");
+        left = Loader.ImageLoader("src/main/resources/images/left.gif");
+        right = Loader.ImageLoader("src/main/resources/images/right.gif");
+        ghost = Loader.ImageLoader("src/main/resources/images/ghost.gif");
+        heart = Loader.ImageLoader("src/main/resources/images/heart.png");
+        fontBig = Loader.FontLoader("src/main/resources/fonts/Pacmania.ttf",42);
+        fontMed = Loader.FontLoader("src/main/resources/fonts/Pacmania.ttf",20);
+        fontSmall = Loader.FontLoader("src/main/resources/fonts/Pacmania.ttf",10);
+        greyButton = Loader.ImageLoader("src/main/resources/ui/grey_button00.png");
+        yellowButton = Loader.ImageLoader("src/main/resources/ui/yellow_button00.png");
+        backgroundMusic = Loader.SoundLoader("src/main/resources/sounds/pacman-song.wav");
     }
 }
