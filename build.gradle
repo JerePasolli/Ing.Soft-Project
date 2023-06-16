@@ -17,6 +17,6 @@ test {
 
 jar{
     manifest{
-        attributes('Main_Class':'main.Window')
+        attributes('Main-Class':'main.Window')
     }
 }
