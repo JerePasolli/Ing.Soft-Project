@@ -55,6 +55,7 @@ public class GameState extends State{
     public GameState(){
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
         //movingObjects.add(pacman);
+      
         ghosts = new Ghost(Assets.ghost,this);
         screenData = new short[Constants.N_BLOCKS * Constants.N_BLOCKS];
         for (int c = 0; c < Constants.N_BLOCKS * Constants.N_BLOCKS; c++) {

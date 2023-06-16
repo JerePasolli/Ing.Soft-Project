@@ -44,7 +44,7 @@ public class ScoreState extends State{
                 100
         );
 
-        Text.drawText(g, Constants.SCORE, scorePos, true, Color.BLUE, Assets.fontBig);
-        Text.drawText(g, Constants.DATE, datePos, true, Color.BLUE, Assets.fontBig);
+        Text.drawText(g, Constants.SCORE, scorePos, true, Color.YELLOW, Assets.fontMed);
+        Text.drawText(g, Constants.DATE, datePos, true, Color.YELLOW, Assets.fontMed);
     }
 }

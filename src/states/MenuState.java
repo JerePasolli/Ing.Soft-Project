@@ -2,6 +2,7 @@ package states;
 
 import constants.Constants;
 import graphics.Assets;
+import graphics.Sound;
 import ui.Action;
 import ui.Button;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 public class MenuState extends State {
 
     private final ArrayList<Button> buttons;
+    private Sound music;
 
     public MenuState(){
         buttons = new ArrayList<Button>();
@@ -20,7 +22,10 @@ public class MenuState extends State {
                 Constants.CANVAS_WIDTH / 2 - new ImageIcon(Assets.greyButton).getIconWidth() / 2,
                 Constants.CANVAS_HEIGHT / 2 - new ImageIcon(Assets.greyButton).getIconHeight() * 3,
                 Constants.PLAY,
-                () -> State.changeState(new GameState())
+                () -> {
+                    music.stop();
+                    State.changeState(new GameState());
+                }
         ));
 
         buttons.add(new Button(Assets.greyButton, Assets.yellowButton,
@@ -36,7 +41,10 @@ public class MenuState extends State {
                 Constants.CANVAS_WIDTH / 2 - new ImageIcon(Assets.greyButton).getIconWidth() / 2,
                 Constants.CANVAS_HEIGHT / 2 - 50,
                 Constants.HIGH_SCORES,
-                () -> State.changeState(new ScoreState())
+                () -> {
+                    music.stop();
+                    State.changeState(new ScoreState());
+                }
         ));
 
         buttons.add(new Button(
@@ -45,8 +53,14 @@ public class MenuState extends State {
                 Constants.CANVAS_WIDTH / 2 - new ImageIcon(Assets.greyButton).getIconWidth() / 2,
                 Constants.CANVAS_HEIGHT / 2 + 50,
                 Constants.HELP,
-                () -> State.changeState(new HelpState())
+                () -> {
+                    music.stop();
+                    State.changeState(new HelpState());
+                }
         ));
+
+        music = new Sound(Assets.backgroundMusic);
+        music.loopClip();
     }
 
     @Override
