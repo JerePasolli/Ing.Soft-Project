@@ -4,8 +4,7 @@ import constants.Constants;
 import gameObjects.Ghost;
 import gameObjects.Pacman;
 import graphics.Assets;
-import graphics.Sound;
-import math.Vector2D;
+
 import java.awt.*;
 import java.util.ArrayList;
 import input.KeyBoard;
@@ -13,12 +12,11 @@ import input.KeyBoard;
 public class GameState extends State{
 
     private Pacman pacman;
-    private final ArrayList<Ghost> fantasmas = new ArrayList<Ghost>();
+    private Ghost ghosts;
     private int ghostNumber;
     private short[] screenData;
     private int score = 0;
     private int lives = 3;
-    public int[] dx,dy;
     /*private final short[] levelData2 = {
             19, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 22,
             17, 16, 16, 16, 16, 24, 16, 16, 16, 16, 16, 16, 16, 16, 20,
@@ -53,47 +51,47 @@ public class GameState extends State{
             0, 25, 26, 26, 24, 26, 30, 0, 27, 26, 24, 26, 26, 28, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
-    private Sound music;
 
     public GameState(){
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
-        ghostNumber = 4;
-        //startGhostsWave();
-        //music = new Sound(Assets.backgroundMusic);
-        //music.loopClip();
+        //movingObjects.add(pacman);
+        ghosts = new Ghost(Assets.ghost,this);
         screenData = new short[Constants.N_BLOCKS * Constants.N_BLOCKS];
         for (int c = 0; c < Constants.N_BLOCKS * Constants.N_BLOCKS; c++) {
             screenData[c] = levelData[c];
         }
-        dx=new int[4];
-        
     }
 
-    public void startGhostsWave(){
-        for(int i=0;i<ghostNumber;i++){
-            fantasmas.get(i).setPosition(4*Constants.BLOCK_SIZE, 4*Constants.BLOCK_SIZE);
-            fantasmas.get(i).setSpeed(Constants.GHOST_SPEED);
-        }
-    }
+   /* public void startGhostsWave(){
+        int x, y;
 
-    public void update(){
-        for (Ghost ghost : fantasmas) {
-                ghost.update();
+        for(int i = 0; i < ghostNumber; i++){
+            x = 20;
+            y = 65;
+
+            Image texture = Assets.ghost;
+            movingObjects.add(new Ghost(new Vector2D(x, y), new Vector2D(Constants.GHOST_SPEED, Constants.GHOST_SPEED), texture, this, this.screenData));
         }
-            if(KeyBoard.ESCAPE){
-                changeState(new PauseState(this));
-            }
+    }*/
+
+    public void update() {
+
+        if(KeyBoard.ESCAPE){
+            changeState(new PauseState(this));
+        }
         pacman.update();
+        ghosts.update();
     }
     //---------------------------DRAW-----------------------------------
     public void draw(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
-        for (Ghost ghost : fantasmas) {
-            ghost.draw(g);
-        }
+        /*for (MovingObject movingObject : movingObjects) {
+            movingObject.draw(g);
+        }*/
         pacman.draw(g);
+        ghosts.draw(g);
         drawMaze((Graphics2D) g);
         drawScoreAndLives(g);
     }
@@ -172,10 +170,6 @@ public class GameState extends State{
 
     public int getLives(){
         return lives;
-    }
-
-    public ArrayList<Ghost> getFantasmas() {
-        return fantasmas;
     }
 
     public Pacman getPacman() {

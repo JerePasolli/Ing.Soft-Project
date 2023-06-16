@@ -1,8 +1,10 @@
 package states;
 
+import graphics.Text;
 import input.KeyBoard;
 import constants.Constants;
 import graphics.Assets;
+import math.Vector2D;
 import ui.Action;
 import ui.Button;
 
@@ -22,12 +24,14 @@ public class PauseState extends State {
                 Constants.CANVAS_WIDTH / 2 - new ImageIcon(Assets.greyButton).getIconWidth() / 2,
                 Constants.CANVAS_HEIGHT / 2 - new ImageIcon(Assets.greyButton).getIconHeight(),
                 Constants.RESUME,
-                new Action(){
-                    @Override
-                    public void doAction(){
-                        State.changeState(gameState);
-                    }
-                }
+                () -> State.changeState(gameState)
+        ));
+
+        buttons.add(new Button(Assets.greyButton, Assets.yellowButton,
+                Constants.CANVAS_WIDTH / 2 - new ImageIcon(Assets.greyButton).getIconWidth() / 2,
+                Constants.CANVAS_HEIGHT / 2 - new ImageIcon(Assets.greyButton).getIconHeight() * 3,
+                Constants.MAIN_MENU,
+                () -> State.changeState(new MenuState())
         ));
     }
     @Override
@@ -43,8 +47,11 @@ public class PauseState extends State {
         for(Button b: buttons){
             b.draw(g);
         }
-    g.setColor(Color.yellow);
-    g.drawString(Constants.PAUSE, Constants.SCREEN_SIZE / 6, 40);
+        Vector2D pausePos = new Vector2D(
+                Constants.SCREEN_SIZE / 6,
+                40
+        );
+        Text.drawText(g, Constants.PAUSE, pausePos, true, Color.YELLOW, Assets.fontMed);
 
     }
 }
