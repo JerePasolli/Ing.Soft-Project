@@ -11,9 +11,6 @@ build
 #Vscode files
 .vscode
 
-# Jar archives
-*.jar
-
 # Intellij files
 *.idea
 *.iml
@@ -29,7 +26,6 @@ build
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
