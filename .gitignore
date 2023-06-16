@@ -1,7 +1,15 @@
 #Gradle files
 .gradle
+
 # Compiled class file
 *.class
+
+#Binary files
+bin
+build
+
+#Vscode files
+.vscode
 
 # Jar archives
 *.jar
@@ -31,6 +39,3 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-
-Model.java
-Pacman.java
