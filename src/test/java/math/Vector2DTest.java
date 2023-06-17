@@ -24,7 +24,7 @@ public class Vector2DTest {
         assertEquals(7,vector2.getY());
         vector1.setX(9);
         vector1.setY(4);
-        assertEquals(9,vector2.getX());
-        assertEquals(4,vector2.getY());
+        assertEquals(9,vector1.getX());
+        assertEquals(4,vector1.getY());
     }
 }
