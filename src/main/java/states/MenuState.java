@@ -76,4 +76,12 @@ public class MenuState extends State {
             b.draw(g);
         }
     }
+
+    public ArrayList<Button> getButtons() {
+        return buttons;
+    }
+
+    public Sound getMusic() {
+        return music;
+    }
 }
