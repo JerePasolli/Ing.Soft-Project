@@ -8,6 +8,7 @@ public class AssetsTest {
 
     @Test
     public void resourcesTest(){
+        Assets.init();
         assertNotNull(Assets.fontMed);
         assertNotNull(Assets.fontBig);
         assertNotNull(Assets.fontSmall);
