@@ -53,6 +53,9 @@ public class GameState extends State{
     };
 
     public GameState(){
+        initGame();
+    }
+    private void initGame(){
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
         //movingObjects.add(pacman);
       
@@ -63,25 +66,32 @@ public class GameState extends State{
         }
     }
 
-   /* public void startGhostsWave(){
-        int x, y;
 
-        for(int i = 0; i < ghostNumber; i++){
-            x = 20;
-            y = 65;
-
-            Image texture = Assets.ghost;
-            movingObjects.add(new Ghost(new Vector2D(x, y), new Vector2D(Constants.GHOST_SPEED, Constants.GHOST_SPEED), texture, this, this.screenData));
-        }
-    }*/
-
+   
     public void update() {
-
-        if(KeyBoard.ESCAPE){
-            changeState(new PauseState(this));
+        int i=0;
+        boolean finished=true;
+        if(ghosts.getFinished()){
+            lives--;
+            initGame();
         }
-        pacman.update();
-        ghosts.update();
+        while(i<Constants.N_BLOCKS*Constants.N_BLOCKS && finished){
+            if((screenData[i] & 48)!=0){
+                finished=false;
+            }
+            i++;
+        }
+        if(finished || lives==0){
+            score+=50;
+            State.changeState(new MenuState());
+        }
+        else{
+            if(KeyBoard.ESCAPE){
+                changeState(new PauseState(this));
+            }
+            pacman.update();
+            ghosts.update();
+        }
     }
     //---------------------------DRAW-----------------------------------
     public void draw(Graphics g){

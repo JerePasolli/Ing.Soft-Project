@@ -10,13 +10,15 @@ import java.util.Random;
 
 public class Ghost {
     private final int[] ghost_x, ghost_y, ghost_dx, ghost_dy, ghostSpeed;
-    private final int[] validSpeeds = {1, 2, 2, 3};
+    private final int[] validSpeeds = {1, 1, 2, 2};
     private final int[] dx, dy;
     private final GameState gameState;
     private final Image texture;
+    private boolean finished;
 
     public Ghost(Image texture,GameState gameState) {
         int x = 1;
+        finished=false;
         this.texture = texture;
         this.gameState = gameState;
         ghost_x = new int[Constants.N_GHOSTS];
@@ -28,8 +30,8 @@ public class Ghost {
         dy = new int[4];
 
         for (int i = 0; i < Constants.N_GHOSTS; i++) {
-            ghost_y[i] = 4 * Constants.BLOCK_SIZE; //start position
-            ghost_x[i] = 4 * Constants.BLOCK_SIZE;
+            ghost_y[i] = 7 * Constants.BLOCK_SIZE; //start position
+            ghost_x[i] = 7 * Constants.BLOCK_SIZE;
             ghost_dy[i] = 0;
             ghost_dx[i] = x;
             x = -x;
@@ -100,6 +102,11 @@ public class Ghost {
             ghost_x[i] = ghost_x[i] + (ghost_dx[i] * ghostSpeed[i]);
             ghost_y[i] = ghost_y[i] + (ghost_dy[i] * ghostSpeed[i]);
 
+            if(gameState.getPacman().getX()>(ghost_x[i]-12) && gameState.getPacman().getX()<(ghost_x[i]+12)
+                && gameState.getPacman().getY()>(ghost_y[i]-12) && gameState.getPacman().getY()<(ghost_y[i]+12)){
+                    finished=true;  
+                }
+
         }
 
     }
@@ -111,5 +118,9 @@ public class Ghost {
         }
 
     }
+    public boolean getFinished(){
+        return finished;
+    }
+
 
 }
