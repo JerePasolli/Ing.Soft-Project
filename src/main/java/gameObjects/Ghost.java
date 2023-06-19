@@ -1,6 +1,8 @@
 package gameObjects;
 
 import constants.Constants;
+import graphics.Assets;
+import graphics.Sound;
 import math.Vector2D;
 import states.GameState;
 
@@ -36,6 +38,7 @@ public class Ghost {
             ghost_dx[i] = x;
             x = -x;
         }
+
     }
 
 

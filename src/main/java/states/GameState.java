@@ -4,6 +4,7 @@ import constants.Constants;
 import gameObjects.Ghost;
 import gameObjects.Pacman;
 import graphics.Assets;
+import graphics.Sound;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class GameState extends State{
     private Ghost ghosts;
     private int ghostNumber;
     private short[] screenData;
+    private Sound music,mdeadth;
     private int score = 0;
     private int lives = 3;
     /*private final short[] levelData2 = {
@@ -56,6 +58,9 @@ public class GameState extends State{
         initGame();
     }
     private void initGame(){
+        music=new Sound(Assets.ghostm);
+        music.loopClip();
+        score=0;
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
         //movingObjects.add(pacman);
       
@@ -73,6 +78,19 @@ public class GameState extends State{
         boolean finished=true;
         if(ghosts.getFinished()){
             lives--;
+            mdeadth=new Sound(Assets.death);
+            music.stop();
+            try{
+                Thread.sleep(1000);
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            mdeadth.play();
+            try{
+                Thread.sleep(2500);
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
             initGame();
         }
         while(i<Constants.N_BLOCKS*Constants.N_BLOCKS && finished){
@@ -83,6 +101,7 @@ public class GameState extends State{
         }
         if(finished || lives==0){
             score+=50;
+            music.stop();
             State.changeState(new MenuState());
         }
         else{

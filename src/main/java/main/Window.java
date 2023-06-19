@@ -28,7 +28,7 @@ public class Window extends JFrame implements Runnable{
 
     public Window(){
         setTitle("PACMAN");
-        setSize(Constants.FRAME_WIDTH,Constants.FRAME_HEIGHT);
+        setSize(Constants.FRAME_WIDTH+10,Constants.FRAME_HEIGHT+10);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -75,7 +75,7 @@ public class Window extends JFrame implements Runnable{
         //g.fillRect(0, 0, WIDTH, HEIGHT);
 
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
+        g.fillRect(0, 0, Constants.CANVAS_WIDTH+10, Constants.CANVAS_HEIGHT+10);
         //g.setColor(Color.WHITE);
         //g.drawString(""+AVGFPS, 10, 20);
         //g.drawImage(Assets.up, 100, 100, null);
