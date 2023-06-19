@@ -7,13 +7,15 @@ import graphics.Assets;
 import graphics.Sound;
 
 import java.awt.*;
-import java.util.ArrayList;
+
 import input.KeyBoard;
+import io.ScoreData;
 
 public class GameState extends State{
 
     private Pacman pacman;
     private Ghost ghosts;
+    private ScoreData scoreData;
     private int ghostNumber;
     private short[] screenData;
     private Sound music,mdeadth;
@@ -61,6 +63,7 @@ public class GameState extends State{
         music=new Sound(Assets.ghostm);
         music.loopClip();
         score=0;
+        scoreData = new ScoreData();
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
         //movingObjects.add(pacman);
       
@@ -182,6 +185,7 @@ public class GameState extends State{
     //----------CONTROL DE VIDA Y PUNTAJE-------------
     public void addScore(int x){
         score += x;
+        scoreData.setScore(score);
     }
 
     public void susbtractLife(){
