@@ -1,7 +1,6 @@
 package gameObjects;
 
 import graphics.Assets;
-import graphics.Sound;
 import input.KeyBoard;
 import constants.Constants;
 import states.GameState;
@@ -11,15 +10,11 @@ import java.awt.*;
 
 public class Pacman extends GameObject{
     private int req_dx,req_dy;
-    private Sound music1,music2;
-    private boolean bn;
+
     public Pacman(int pacman_x,int pacman_y,Image texture,GameState gameState){
         super(pacman_x,pacman_y,texture,gameState);
         this.dx=0;
         this.dy=0;
-        music1 = new Sound(Assets.eatMusic1);
-        music2 = new Sound(Assets.eatMusic2);
-        
     }
 
     public void update(){
@@ -56,14 +51,6 @@ public class Pacman extends GameObject{
             if ((ch & 16) != 0) {
                 gameState.setScreenData(pos,(short)(ch & 15));
                 gameState.addScore(1);
-                if(!bn){
-                    music1.play();
-                    bn=!bn;
-                }
-                else{
-                    music2.play();
-                    bn=!bn;
-                }
             }
 
             if (req_dx != 0 || req_dy != 0) {

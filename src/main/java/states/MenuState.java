@@ -60,7 +60,7 @@ public class MenuState extends State {
         ));
 
         music = new Sound(Assets.backgroundMusic);
-        music.play();
+        music.loopClip();
     }
 
     @Override

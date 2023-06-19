@@ -4,7 +4,6 @@ import constants.Constants;
 import gameObjects.Ghost;
 import gameObjects.Pacman;
 import graphics.Assets;
-import graphics.Sound;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ public class GameState extends State{
     private Ghost ghosts;
     private int ghostNumber;
     private short[] screenData;
-    private Sound music,mdeadth;
     private int score = 0;
     private int lives = 3;
     /*private final short[] levelData2 = {
@@ -55,12 +53,6 @@ public class GameState extends State{
     };
 
     public GameState(){
-        initGame();
-    }
-    private void initGame(){
-        music=new Sound(Assets.ghostm);
-        music.loopClip();
-        score=0;
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
         //movingObjects.add(pacman);
       
@@ -71,46 +63,25 @@ public class GameState extends State{
         }
     }
 
+   /* public void startGhostsWave(){
+        int x, y;
 
-   
+        for(int i = 0; i < ghostNumber; i++){
+            x = 20;
+            y = 65;
+
+            Image texture = Assets.ghost;
+            movingObjects.add(new Ghost(new Vector2D(x, y), new Vector2D(Constants.GHOST_SPEED, Constants.GHOST_SPEED), texture, this, this.screenData));
+        }
+    }*/
+
     public void update() {
-        int i=0;
-        boolean finished=true;
-        if(ghosts.getFinished()){
-            lives--;
-            mdeadth=new Sound(Assets.death);
-            music.stop();
-            try{
-                Thread.sleep(1000);
-            }catch(InterruptedException e){
-                e.printStackTrace();
-            }
-            mdeadth.play();
-            try{
-                Thread.sleep(2500);
-            }catch(InterruptedException e){
-                e.printStackTrace();
-            }
-            initGame();
+
+        if(KeyBoard.ESCAPE){
+            changeState(new PauseState(this));
         }
-        while(i<Constants.N_BLOCKS*Constants.N_BLOCKS && finished){
-            if((screenData[i] & 48)!=0){
-                finished=false;
-            }
-            i++;
-        }
-        if(finished || lives==0){
-            score+=50;
-            music.stop();
-            State.changeState(new MenuState());
-        }
-        else{
-            if(KeyBoard.ESCAPE){
-                changeState(new PauseState(this));
-            }
-            pacman.update();
-            ghosts.update();
-        }
+        pacman.update();
+        ghosts.update();
     }
     //---------------------------DRAW-----------------------------------
     public void draw(Graphics g){
