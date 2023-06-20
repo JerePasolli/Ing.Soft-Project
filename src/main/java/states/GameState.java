@@ -20,7 +20,7 @@ public class GameState extends State{
     private short[] screenData;
     private Sound music,mdeadth;
     private int score = 0;
-    private int lives = 3;
+    private int lives = 1;
     /*private final short[] levelData2 = {
             19, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 22,
             17, 16, 16, 16, 16, 24, 16, 16, 16, 16, 16, 16, 16, 16, 20,
@@ -63,7 +63,7 @@ public class GameState extends State{
         music=new Sound(Assets.ghostm);
         music.loopClip();
         score=0;
-        scoreData = new ScoreData();
+        this.scoreData = new ScoreData();
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
         //movingObjects.add(pacman);
       
@@ -73,6 +73,14 @@ public class GameState extends State{
             screenData[c] = levelData[c];
         }
     }
+
+    private void reanimatePacman(){
+        music= new Sound(Assets.ghostm);
+        music.loopClip();
+        score=0;
+        pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
+        ghosts = new Ghost(Assets.ghost,this);
+   }
 
 
    
@@ -94,7 +102,7 @@ public class GameState extends State{
             }catch(InterruptedException e){
                 e.printStackTrace();
             }
-            initGame();
+            reanimatePacman();
         }
         while(i<Constants.N_BLOCKS*Constants.N_BLOCKS && finished){
             if((screenData[i] & 48)!=0){
@@ -103,9 +111,9 @@ public class GameState extends State{
             i++;
         }
         if(finished || lives==0){
-            score+=50;
+            //score+=50;
             music.stop();
-            State.changeState(new MenuState());
+            State.changeState(new NewBestState(this.scoreData));
         }
         else{
             if(KeyBoard.ESCAPE){
