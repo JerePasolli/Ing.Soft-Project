@@ -1,5 +1,5 @@
-package graphics;
 
+import graphics.Assets;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
