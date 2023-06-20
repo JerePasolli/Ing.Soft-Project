@@ -3,6 +3,7 @@ package states;
 import constants.Constants;
 import graphics.Assets;
 import graphics.Text;
+import io.JSONMaker;
 import io.ScoreData;
 import math.Vector2D;
 import ui.Button;
@@ -16,9 +17,12 @@ import java.util.ArrayList;
 public class NewBestState extends State{
 
 private ScoreData newBest;
+private JSONMaker jsonMaker;
 
     public NewBestState(ScoreData scoreData){
       this.newBest = scoreData;
+      jsonMaker = new JSONMaker();
+      jsonMaker.write(scoreData.getDate(), scoreData.getScore());
     }
 
     @Override
@@ -48,11 +52,21 @@ private ScoreData newBest;
                 Constants.CANVAS_WIDTH / 3,
                 150
         );
-        Text.drawText(g, Constants.NEW_BEST_MESSAGE, newBestTitlePos, true, Color.YELLOW, Assets.fontMed);
-        Text.drawText(g, String.valueOf(this.newBest.getScore()), newBestPos, true, Color.YELLOW, Assets.fontMed);
-        Text.drawText(g, String.valueOf(this.newBest.getDate()), datePos, true, Color.YELLOW, Assets.fontSmall);
-        Text.drawText(g, String.valueOf(this.newBest.getDate()), dateMessagePos, true, Color.YELLOW, Assets.fontSmall);
-        Text.drawText(g, String.valueOf(this.newBest.getDate()), newBestMessagePos, true, Color.YELLOW, Assets.fontSmall);
+
+         if(jsonMaker.isBest()){
+             Text.drawText(g, Constants.NEW_BEST_MESSAGE, newBestTitlePos, true, Color.YELLOW, Assets.fontMed);
+             Text.drawText(g, String.valueOf(this.newBest.getScore()), newBestPos, true, Color.YELLOW, Assets.fontMed);
+             Text.drawText(g, String.valueOf(this.newBest.getDate()), datePos, true, Color.YELLOW, Assets.fontSmall);
+             Text.drawText(g, String.valueOf(this.newBest.getDate()), dateMessagePos, true, Color.YELLOW, Assets.fontSmall);
+             Text.drawText(g, String.valueOf(this.newBest.getDate()), newBestMessagePos, true, Color.YELLOW, Assets.fontSmall);
+         }else{
+             Text.drawText(g, Constants.MESSAGE_DEFAULT, newBestTitlePos, true, Color.YELLOW, Assets.fontMed);
+             Text.drawText(g, String.valueOf(this.newBest.getScore()), newBestPos, true, Color.YELLOW, Assets.fontMed);
+             Text.drawText(g, String.valueOf(this.newBest.getDate()), datePos, true, Color.YELLOW, Assets.fontSmall);
+             Text.drawText(g, String.valueOf(this.newBest.getDate()), dateMessagePos, true, Color.YELLOW, Assets.fontSmall);
+             Text.drawText(g, String.valueOf(this.newBest.getDate()), newBestMessagePos, true, Color.YELLOW, Assets.fontSmall);
+         }
+
 
 
 

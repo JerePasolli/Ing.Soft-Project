@@ -9,26 +9,26 @@ public class JSONMaker {
     private FileWriter jsonWriter;
     private Scanner reader;
     private ArrayList<String> lines;
+    private String bestDate;
+    private Integer bestScore;
+    private boolean isBest;
     public JSONMaker(){
         json = new File("scores.json");
-        lines = new ArrayList<String>();
         read();
     }
 
     private void addScore(String name, int score){
-       /* lines.add("\t{");
-        lines.add("\t\t" + "\"" + name + "\"" + ": " + score);
-        lines.add("\t}");*/
         lines.add("\t{\n" + "\t\t" + "\"" + name + "\"" + ": " + score + "\n\t}");
     }
 
     public void write(String name, int score){
+        read();
+        readScores();
         addScore(name, score);
         try{
             jsonWriter = new FileWriter(json);
             jsonWriter.write("[\n");
             for(int i=0; i<lines.size(); i++){
-                // jsonWriter.write(line + "\n");
                 String line = lines.get(i);
                 jsonWriter.write(line);
                 if(lines.size() != 1 && line.equals("\t}") && i != lines.size()-1){
@@ -41,9 +41,11 @@ public class JSONMaker {
         }catch(Exception ex){
             System.out.println("no se puede escribir archivo");
         }
+        verify();
     }
 
     private void read(){
+        lines = new ArrayList<String>();
         try{
             json.createNewFile();
             reader = new Scanner(json);
@@ -57,5 +59,28 @@ public class JSONMaker {
         }catch(Exception ex){
             System.out.println("no se puede leer");
         }
+    }
+
+    private void readScores(){
+        read();
+        bestScore = 0;
+        for(String line : lines){
+            if(line.contains(":")){
+                Integer aux = Integer.valueOf(line.substring(line.indexOf(":")+2));
+                if(bestScore < aux){
+                    bestScore = aux;
+                    bestDate = line.substring(3, line.indexOf(":")-1);
+                }
+            }
+        }
+    }
+
+    public boolean isBest(){
+        return isBest;
+    }
+    private void verify(){
+        Integer scoreAux = bestScore;
+        readScores();
+        isBest = bestScore > scoreAux;
     }
 }

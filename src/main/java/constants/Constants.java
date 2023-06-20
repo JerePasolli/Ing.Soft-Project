@@ -29,4 +29,5 @@ public class Constants {
     public static final String HELPLINE3 = "Colisionar con un fantasma le hará perder una vida";
     public static final String HELPLINE4 = "Cuenta con 3 vidas, al perder todas finaliza el juego";
     public static final String NEW_BEST_MESSAGE = "New Best";
+    public static final String MESSAGE_DEFAULT = "Your Score:";
 }
