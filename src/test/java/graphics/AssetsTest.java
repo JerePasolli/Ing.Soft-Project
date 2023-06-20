@@ -1,4 +1,3 @@
-
 import graphics.Assets;
 import org.junit.jupiter.api.Test;
 
