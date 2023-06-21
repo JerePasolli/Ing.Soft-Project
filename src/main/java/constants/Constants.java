@@ -14,7 +14,7 @@ public class Constants {
     public static final int GHOST_SPEED = 2;
     public static final Font smallFont = new Font("Arial", Font.BOLD, 14);
     public static int N_GHOSTS = 4;
-    public static final String JSON_PATH = "./src/main/java/io/data/scores.json";
+    public static final String JSON_PATH = "./src/main/java/io/data/Scores.json";
     public static final String PLAY = "PLAY";
     public static final String EXIT = "EXIT";
     public static final String RESUME = "RESUME";
