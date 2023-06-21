@@ -2,7 +2,10 @@ package io;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 import java.util.Scanner;
+
+import constants.Constants;
 
 public class JSONMaker {
     private File json;
@@ -12,10 +15,15 @@ public class JSONMaker {
     private String bestDate;
     private Integer bestScore;
     private boolean isBest;
+    private ArrayList<ScoreData> scoreDataList;
+
     public JSONMaker(){
-        json = new File("scores.json");
+        json = new File(Constants.JSON_PATH);
+        scoreDataList = new ArrayList<ScoreData>();
         read();
+        readScores();
     }
+ 
 
     private void addScore(String name, int score){
         lines.add("\t{\n" + "\t\t" + "\"" + name + "\"" + ": " + score + "\n\t}");
@@ -46,12 +54,12 @@ public class JSONMaker {
 
     private void read(){
         lines = new ArrayList<String>();
+
         try{
             json.createNewFile();
             reader = new Scanner(json);
             while(reader.hasNextLine()){
                 String line = reader.nextLine();
-                System.out.println(line);
                 if(!(line.equals("]") || line.equals("["))){
                     lines.add(line);
                 }
@@ -64,9 +72,15 @@ public class JSONMaker {
     private void readScores(){
         read();
         bestScore = 0;
+
         for(String line : lines){
             if(line.contains(":")){
                 Integer aux = Integer.valueOf(line.substring(line.indexOf(":")+2));
+                String date = line.substring(3, line.indexOf(":")-1);
+                ScoreData newScoreData = new ScoreData();
+                newScoreData.setScore(aux);
+                newScoreData.setDate(date);
+                this.scoreDataList.add(newScoreData);
                 if(bestScore < aux){
                     bestScore = aux;
                     bestDate = line.substring(3, line.indexOf(":")-1);
@@ -83,4 +97,9 @@ public class JSONMaker {
         readScores();
         isBest = bestScore > scoreAux;
     }
+
+    public ArrayList<ScoreData> getScoreData(){
+        return this.scoreDataList;
+    }
+  
 }

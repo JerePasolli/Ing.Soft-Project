@@ -18,8 +18,20 @@ public class NewBestState extends State{
 
 private ScoreData newBest;
 private JSONMaker jsonMaker;
+private final Button returnButton;
+
 
     public NewBestState(ScoreData scoreData){
+
+      returnButton = new Button(
+                Assets.greyButton,
+                Assets.yellowButton,
+                0,
+                Constants.CANVAS_HEIGHT - 50,
+                Constants.MAIN_MENU,
+                () -> State.changeState(new MenuState())
+        );
+
       this.newBest = scoreData;
       jsonMaker = new JSONMaker();
       jsonMaker.write(scoreData.getDate(), scoreData.getScore());
@@ -27,11 +39,14 @@ private JSONMaker jsonMaker;
 
     @Override
     public void update() {
-        
+        returnButton.update();
     }
 
     @Override
     public void draw(Graphics g) {
+
+                returnButton.draw(g);
+
          Vector2D newBestTitlePos = new Vector2D(
                 Constants.CANVAS_WIDTH / 2,
                 50
