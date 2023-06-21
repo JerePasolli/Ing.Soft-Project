@@ -8,17 +8,19 @@ public class ScoreData {
     private int score;
 
     public ScoreData(int score){
-        Date dateInfo = new Date(System.currentTimeMillis());
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        date = format.format(dateInfo);
-    }
-
-    public ScoreData(){
+        	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	Date d = new Date();
+    this.date = String.valueOf(formatter.format(d));
 
     }
+    public ScoreData() {
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	Date d = new Date();
+    this.date = String.valueOf(formatter.format(d));
 
+    }
     public String getDate() {
-        return date;
+        return this.date;
     }
 
     public void setDate(String date) {
