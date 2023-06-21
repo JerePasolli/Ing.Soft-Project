@@ -22,7 +22,7 @@ public class GameState extends State{
     private short[] screenData;
     private Sound music,mdeadth;
     private int score = 0;
-    private int lives = 1;
+    private int lives = 3;
     /*private final short[] levelData2 = {
             19, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 22,
             17, 16, 16, 16, 16, 24, 16, 16, 16, 16, 16, 16, 16, 16, 20,
