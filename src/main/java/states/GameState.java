@@ -7,16 +7,18 @@ import graphics.Assets;
 import graphics.Sound;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import input.KeyBoard;
 import io.ScoreData;
+import observer.Observer;
 
 public class GameState extends State{
 
     private Pacman pacman;
     private Ghost ghosts;
     private ScoreData scoreData;
-    private int ghostNumber;
+    private ArrayList<Observer> observers;
     private short[] screenData;
     private Sound music,mdeadth;
     private int score = 0;
@@ -68,10 +70,15 @@ public class GameState extends State{
         //movingObjects.add(pacman);
       
         ghosts = new Ghost(Assets.ghost,this);
+        observers = new ArrayList<Observer>();
         screenData = new short[Constants.N_BLOCKS * Constants.N_BLOCKS];
         for (int c = 0; c < Constants.N_BLOCKS * Constants.N_BLOCKS; c++) {
             screenData[c] = levelData[c];
         }
+    }
+
+    public void register(Observer obs){
+        observers.add(obs);
     }
 
     private void reanimatePacman(){
@@ -102,6 +109,7 @@ public class GameState extends State{
             }catch(InterruptedException e){
                 e.printStackTrace();
             }
+            observers.get(0).update(false);
             reanimatePacman();
         }
         while(i<Constants.N_BLOCKS*Constants.N_BLOCKS && finished){
@@ -113,7 +121,8 @@ public class GameState extends State{
         if(finished || lives==0){
             //score+=50;
             music.stop();
-            State.changeState(new NewBestState(this.scoreData));
+            //State.changeState(new NewBestState(this.scoreData));
+            observers.get(0).update(true);
         }
         else{
             if(KeyBoard.ESCAPE){
@@ -216,5 +225,8 @@ public class GameState extends State{
 
     public Pacman getPacman() {
         return pacman;
+    }
+    public ScoreData getScoreData(){
+        return scoreData;
     }
 }
