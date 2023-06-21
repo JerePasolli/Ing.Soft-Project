@@ -37,4 +37,3 @@ build
 hs_err_pid*
 
 #json files
-*.json
