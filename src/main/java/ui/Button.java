@@ -9,12 +9,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Button {
-    private Image mouseOutImage;
-    private Image mouseInImage;
+    private final Image mouseOutImage;
+    private final Image mouseInImage;
     private boolean mouseIn;
-    private Rectangle box;
-    private String text;
-    private Action action;
+    private final Rectangle box;
+    private final String text;
+    private final Action action;
 
     public Button(Image mouseOutImage, Image mouseInImage, int x, int y, String text, Action action) {
         this.mouseOutImage = mouseOutImage;

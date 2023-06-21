@@ -144,4 +144,15 @@ public class Window extends JFrame implements Runnable{
             throw new RuntimeException(e);
         }
     }
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
+    public KeyBoard getKeyBoard() {
+        return keyBoard;
+    }
+
+    public Mouse getMouseInput() {
+        return mouseInput;
+    }
 }
