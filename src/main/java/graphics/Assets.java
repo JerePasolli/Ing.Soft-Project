@@ -20,6 +20,7 @@ public class Assets {
     public static Image yellowButton;
     public static Clip backgroundMusic;
     public static Clip eatMusic1,eatMusic2,ghostm,death;
+    public static Image blueGhost;
 
     public static void init(){
         down = Loader.ImageLoader("./src/main/resources/images/down.gif");
@@ -38,5 +39,6 @@ public class Assets {
         eatMusic2 = Loader.SoundLoader("./src/main/resources/sounds/pacman-waka2.wav");
         ghostm = Loader.SoundLoader("./src/main/resources/sounds/pacman-ghost.wav");
         death = Loader.SoundLoader("./src/main/resources/sounds/pacman-death.wav");
+        blueGhost = Loader.ImageLoader("./src/main/resources/images/blue-ghost.gif");
     }
 }
