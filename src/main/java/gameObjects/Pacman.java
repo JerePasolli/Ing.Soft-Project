@@ -126,12 +126,11 @@ public class Pacman extends GameObject{
     }
     public Sound getMusic2(){
         return music2;
-
+    }
     private void notifyObservers(){
         for(ObserverPowerUp obs : observers){
             obs.setPowerUp(powerUp);
         }
 
-    }
 
 }
