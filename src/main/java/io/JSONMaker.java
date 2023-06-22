@@ -2,7 +2,7 @@ package io;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.PriorityQueue;
+import java.util.HashSet;
 import java.util.Scanner;
 
 import constants.Constants;
@@ -15,7 +15,7 @@ public class JSONMaker {
     private String bestDate;
     private Integer bestScore;
     private boolean isBest;
-    private ArrayList<ScoreData> scoreDataList;
+    private HashSet<ScoreData> scoreDataList;
 
     private static JSONMaker instance;
 
@@ -24,7 +24,7 @@ public class JSONMaker {
      */
     private JSONMaker(){
         json = new File(Constants.JSON_PATH);
-        scoreDataList = new ArrayList<ScoreData>();
+        scoreDataList = new HashSet<ScoreData>();
         read();
         readScores();
     }
@@ -55,7 +55,6 @@ public class JSONMaker {
      */
     public void write(String name, int score){
         read();
-        readScores();
         addScore(name, score);
         try{
             jsonWriter = new FileWriter(json);
@@ -73,7 +72,8 @@ public class JSONMaker {
         }catch(Exception ex){
             System.out.println("no se puede escribir archivo");
         }
-        verify();
+      //  verify();
+      readScores();
     }
 
     /**
@@ -102,7 +102,7 @@ public class JSONMaker {
     private void readScores(){
         read();
         bestScore = 0;
-
+        this.scoreDataList.clear();
         for(String line : lines){
             if(line.contains(":")){
                 Integer aux = Integer.valueOf(line.substring(line.indexOf(":")+2));
@@ -111,10 +111,10 @@ public class JSONMaker {
                 newScoreData.setScore(aux);
                 newScoreData.setDate(date);
                 this.scoreDataList.add(newScoreData);
-                if(bestScore < aux){
+                /*if(bestScore < aux){
                     bestScore = aux;
                     bestDate = line.substring(3, line.indexOf(":")-1);
-                }
+                }*/
             }
         }
     }
@@ -130,17 +130,17 @@ public class JSONMaker {
     /**
      *  Verifica que el nuevo score es mejor que los previos.
      */
-    private void verify(){
+  /*  private void verify(){
         Integer scoreAux = bestScore;
         readScores();
         isBest = bestScore > scoreAux;
-    }
+    } */
 
     /**
      *  Retorna la lista con los mejores scores registrados.
      *  @return arrayList de los mejores scores
      */
-    public ArrayList<ScoreData> getScoreData(){
+    public HashSet<ScoreData> getScoreData(){
         return this.scoreDataList;
     }
   
