@@ -97,4 +97,11 @@ public class Pacman extends GameObject{
         g.drawImage(texture,x+1,y+1,null);
     }
 
+    public Sound getMusic1(){
+        return music1;
+    }
+    public Sound getMusic2(){
+        return music2;
+    }
+
 }
