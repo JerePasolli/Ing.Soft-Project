@@ -19,14 +19,19 @@ public class JSONMaker {
 
     private static JSONMaker instance;
 
+    /**
+     *  Constructor de la clase, abre un archivo json o lo crea segun corresponda, leyendo los scores registrados.
+     */
     private JSONMaker(){
         json = new File(Constants.JSON_PATH);
         scoreDataList = new ArrayList<ScoreData>();
         read();
         readScores();
     }
- 
 
+    /**
+     *  Retorna instancia de JSONMaker, si no hay ninguna crea una, siguiendo el patron Singleton.
+     */
     public static JSONMaker getInstance(){
         if(instance == null){
             instance = new JSONMaker();
@@ -34,10 +39,20 @@ public class JSONMaker {
         return instance;
     }
 
+    /**
+     *  Agrega una nueva linea con un registro nuevo de score.
+     *  @param name fecha del score registrado por el jugador
+     *  @param score score registrado en la partida
+     */
     private void addScore(String name, int score){
         lines.add("\t{\n" + "\t\t" + "\"" + name + "\"" + ": " + score + "\n\t}");
     }
 
+    /**
+     *  Agrega un nuevo registro al archivo JSON.
+     *  @param name fecha del score registrado por el jugador
+     *  @param score score registrado en la partida
+     */
     public void write(String name, int score){
         read();
         readScores();
@@ -61,6 +76,9 @@ public class JSONMaker {
         verify();
     }
 
+    /**
+     *  Lee el archivo JSON con scores guardados y los agrega a una lista.
+     */
     private void read(){
         lines = new ArrayList<String>();
 
@@ -78,6 +96,9 @@ public class JSONMaker {
         }
     }
 
+    /**
+     *  Lee y parsea los scores que se extraen del JSON.
+     */
     private void readScores(){
         read();
         bestScore = 0;
@@ -98,15 +119,27 @@ public class JSONMaker {
         }
     }
 
+    /**
+     *  Retorna un booleano indicando si un score es el mejor registrado hasta la fecha.
+     *  @return booleano que indica si un score es el mejor
+     */
     public boolean isBest(){
         return isBest;
     }
+
+    /**
+     *  Verifica que el nuevo score es mejor que los previos.
+     */
     private void verify(){
         Integer scoreAux = bestScore;
         readScores();
         isBest = bestScore > scoreAux;
     }
 
+    /**
+     *  Retorna la lista con los mejores scores registrados.
+     *  @return arrayList de los mejores scores
+     */
     public ArrayList<ScoreData> getScoreData(){
         return this.scoreDataList;
     }

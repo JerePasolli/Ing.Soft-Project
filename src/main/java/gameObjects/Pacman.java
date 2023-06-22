@@ -17,6 +17,14 @@ public class Pacman extends GameObject{
     private ArrayList<Ghost> observers;
     private boolean bn;
     private boolean powerUp;
+
+    /**
+     *  Constructor de la clase. Inicializa el Pacman en el juego.
+     *  @param pacman_x coordenada "x" inicial del Pacman
+     *  @param pacman_y coordenada "y" inicial del Pacman
+     *  @param texture imagen que identifica al Pacman
+     *  @param gameState estado del juego en curso
+     */
     public Pacman(int pacman_x,int pacman_y,Image texture,GameState gameState){
         super(pacman_x,pacman_y,texture,gameState);
         this.dx=0;
@@ -27,10 +35,17 @@ public class Pacman extends GameObject{
         powerUp = false;
     }
 
+    /**
+     *  Registra un fantasma como observador del Pacman (sujeto).
+     *  @param ghost fantasma a registrar como observador
+     */
     public void registerObserver(Ghost ghost){
         observers.add(ghost);
     }
 
+    /**
+     *  Actualiza la ubicacion del Pacman en funcion de la entrada por teclado.
+     */
     public void update(){
         if(KeyBoard.LEFT){
             texture=Assets.left;
@@ -55,6 +70,10 @@ public class Pacman extends GameObject{
         movePacman();
         notifyObservers();
     }
+
+    /**
+     *  Gestiona los movimientos y colisiones del Pacman.
+     */
     public void movePacman(){
         int pos;
         short ch;
@@ -116,16 +135,34 @@ public class Pacman extends GameObject{
         this.y = this.y + Constants.PACMAN_SPEED * dy;
 
     }
+
+    /**
+     *  Dibuja el Pacman en la ubicacion correspondiente.
+     *  @param g elemento grafico para dibujar
+     */
     public void draw(Graphics g){
         g.drawImage(texture,x+1,y+1,null);
     }
 
+    /**
+     * Retorna el sonido asociado al parametro music1.
+     *  return music1
+     */
     public Sound getMusic1(){
         return music1;
     }
+
+    /**
+     * Retorna el sonido asociado al parametro music2.
+     *  return music2
+     */
     public Sound getMusic2(){
         return music2;
     }
+
+    /**
+     *  Notifica a los fantasmas (observadores) de un cambio en el estado del Pacman.
+     */
     private void notifyObservers(){
         for(ObserverPowerUp obs : observers){
             obs.setPowerUp(powerUp);

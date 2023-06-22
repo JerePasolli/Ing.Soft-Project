@@ -20,10 +20,14 @@ public class Ghost implements ObserverPowerUp {
     private boolean powerUp;
     private MovementStrategy movementStrategy;
 
-    public Ghost(Image texture,GameState gameState, Pacman subject) {
+    /**
+     *  Constructor de la clase. Inicializa un grupo de 4 fantasmas en el juego.
+     *  @param gameState estado del juego en curso
+     *  @param subject instancia del sujeto (en este caso el Pacman) al que atienden los fantasmas
+     */
+    public Ghost(GameState gameState, Pacman subject) {
         int x = 1;
         finished=false;
-       // this.texture = texture;
         this.gameState = gameState;
         ghost_x = new int[Constants.N_GHOSTS];
         ghost_dx = new int[Constants.N_GHOSTS];
@@ -48,14 +52,24 @@ public class Ghost implements ObserverPowerUp {
 
     }
 
+    /**
+     *  Permite cambiar el comportamiento de movimiento de los fantasmas.
+     *  @param p booleano que define comportamiento de los fantasmas
+     */
     public void setPowerUp(boolean p){
         powerUp = p;
     }
 
+    /**
+     *  Los fantasmas (observadores) solicitan al Pacman (sujeto) que los registre.
+     */
     public void registerObserver(){
         subject.registerObserver(this);
     }
-    
+
+    /**
+     *  Se encarga de gestionar los movimientos por el escenario de los fantasmas, y tambien sus colisiones
+     */
     public void move(){
         int pos;
         int count;
@@ -136,6 +150,9 @@ public class Ghost implements ObserverPowerUp {
     }
 
 
+    /**
+     *  Actualiza estado de los fantasmas, y cambia su comportamiento de movimienmto segun sea el estado del sujeto.
+     */
     public void update() {
         if(!powerUp){
             movementStrategy = new MoveNormal(ghost_x, ghost_y);
@@ -160,14 +177,18 @@ public class Ghost implements ObserverPowerUp {
 
     }
 
-
+    /**
+     *  Dibuja los fantamas y cambia su color segun su estado.
+     */
     public void draw(Graphics g) {
         movementStrategy.changeColor(g);
-
     }
+
+    /**
+     *  Retorna verdadero o falso segun si termino el juego o no.
+     *  @return el booleano que indica si el juego ha terminado
+     */
     public boolean getFinished(){
         return finished;
     }
-
-
 }

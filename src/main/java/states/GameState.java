@@ -76,19 +76,25 @@ public class GameState extends State{
             25, 26, 26, 26, 26, 26, 24, 26, 24, 26, 26, 26, 26, 26, 28
     };
 
+    /**
+     *  Constructor de la clase. inicia el juego propiamente dicho, se llama al pulsar el boton de play.
+     */
     public GameState(){
         initGame();
-       // powerUp=false;
     }
+
+    /**
+     *  Inicia el juego, aplicando los efectos de sonido al Pacman, y seteando en cero el score. Se inicializan los
+     *  fantasmas y el Pacman.
+     */
     private void initGame(){
         music=new Sound(Assets.ghostm);
         music.loopClip();
         score=0;
         this.scoreData = new ScoreData();
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
-        //movingObjects.add(pacman);
       
-        ghosts = new Ghost(Assets.ghost,this, pacman);
+        ghosts = new Ghost(this, pacman);
         observers = new ArrayList<Observer>();
         screenData = new short[Constants.N_BLOCKS * Constants.N_BLOCKS];
         for (int c = 0; c < Constants.N_BLOCKS * Constants.N_BLOCKS; c++) {
@@ -96,20 +102,27 @@ public class GameState extends State{
         }
     }
 
+    /**
+     *  Permite registrar a un observador en el ArrayList de observers.
+     *  @param obs observador a registrar
+     */
     public void register(Observer obs){
         observers.add(obs);
     }
 
+    /**
+     *  Revive al Pacman al perder una vida, y resetea a los fantasmas a su posicion inicial.
+     */
     private void reanimatePacman(){
         music= new Sound(Assets.ghostm);
         music.loopClip();
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
-        ghosts = new Ghost(Assets.ghost,this, pacman);
-
+        ghosts = new Ghost(this, pacman);
    }
 
-
-   
+    /**
+     *  Actualiza estado de fantasmas y Pacman.
+     */
     public void update() {
         int i=0;
         boolean finished=true;
@@ -117,17 +130,7 @@ public class GameState extends State{
             lives--;
             mdeadth=new Sound(Assets.death);
             music.stop();
-            try{
-                Thread.sleep(1000);
-            }catch(InterruptedException e){
-                e.printStackTrace();
-            }
             mdeadth.play();
-            try{
-                Thread.sleep(2500);
-            }catch(InterruptedException e){
-                e.printStackTrace();
-            }
             observers.get(0).update(false);
             reanimatePacman();
         }
@@ -152,19 +155,24 @@ public class GameState extends State{
         }
     }
     //---------------------------DRAW-----------------------------------
+    /**
+     *  Dibuja al Pacman, los fantasmas, el escenario y el hud de puntaje y vida.
+     *  @param g graficos para dibujar
+     */
     public void draw(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
-        /*for (MovingObject movingObject : movingObjects) {
-            movingObject.draw(g);
-        }*/
         pacman.draw(g);
         ghosts.draw(g);
         drawMaze((Graphics2D) g);
         drawScoreAndLives(g);
     }
 
+    /**
+     *  Dibuja el hud de score y vidas.
+     *  @param g graficos para dibujar
+     */
     private void drawScoreAndLives(Graphics g) {
         g.setFont(Constants.smallFont);
         g.setColor(new Color(5, 181, 79));
@@ -176,6 +184,10 @@ public class GameState extends State{
         }
     }
 
+    /**
+     *  Dibuja escenario o laberinto.
+     *  @param g2d graficos para dibujar
+     */
     private void drawMaze(Graphics2D g2d) {
 
         short i = 0;
@@ -224,39 +236,77 @@ public class GameState extends State{
 
     }
     //----------CONTROL DE VIDA Y PUNTAJE-------------
+    /**
+     *  Suma el score que recibe al score global.
+     *  @param x score a sumar
+     */
     public void addScore(int x){
         score += x;
         scoreData.setScore(score);
     }
 
+    /**
+     *  Resta una vida al jugador.
+     */
     public void susbtractLife(){
         lives --;
     }
 
     //--------------GETTERS Y SETTERS-------------------
 
+    /**
+     *  Retorna los datos en pantalla del escenario.
+     *  @return datos en pantalla del escenario
+     */
     public short[] getScreenData(){
         return this.screenData;
     }
 
+    /**
+     *  Permite modificar los datos en pantalla del escenario.
+     *  @param pos posicion en pantalla a modificar
+     *  @param value valor a colocar en esa posicion
+     */
     public void setScreenData(int pos,short value){
         this.screenData[pos]=value;
     }
 
+    /**
+     *  Retorna la cantidad de vidas restantes del jugador.
+     *  @return cantidad de vidas restantes
+     */
     public int getLives(){
         return lives;
     }
 
+    /**
+     *  Retorna la instancia de Pacman que se esta utilizando en este estado.
+     *  @return instancia del Pacman
+     */
     public Pacman getPacman() {
         return pacman;
     }
+
+    /**
+     *  Retorna el score actual del jugador.
+     *  @return score del jugador
+     */
     public ScoreData getScoreData(){
         return scoreData;
     }
 
+    /**
+     *  Retorna la cantidad de vidas restantes del jugador.
+     *  @return cantidad de vidas restantes
+     */
     public void setPowerUp(boolean powerUp){
         this.powerUp=powerUp;
     }
+
+    /**
+     *  Retorna el valor de powerUp (estado de los fantasmas).
+     *  @return valor de powerUp
+     */
     public boolean getPowerUp(){
         return powerUp;
     }
