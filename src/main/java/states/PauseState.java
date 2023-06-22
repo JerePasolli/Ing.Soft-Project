@@ -12,11 +12,23 @@ import javax.swing.ImageIcon;
 import java.awt.*;
 import java.util.ArrayList;
 
+
+/**
+ * La clase que muestra el menu de pausa
+ */
 public class PauseState extends State {
 
+
+    /**
+     * Contiene los botones
+     */
     private final ArrayList<Button> buttons;
     private GameState gameState;
 
+    /**
+     * El constructor de la clase, genera las vistas.
+     * @param gameState el estado del juego
+     */
     public PauseState(GameState gameState){
         this.gameState = gameState;
         buttons = new ArrayList<Button>();
@@ -42,6 +54,10 @@ public class PauseState extends State {
         }
     }
 
+    /**
+     * Dibuja las vistas en pantalla
+     * @param g la ruta de la screen donde se visualizaran las vistas
+     */
     @Override
     public void draw(Graphics g) {
         for(Button b: buttons){

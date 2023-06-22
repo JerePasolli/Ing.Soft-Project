@@ -16,12 +16,18 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Arrays;
 
+/**
+ * La clase que muestra los diez puntajes más altos
+ */
 public class ScoreState extends State{
     private Comparator<ScoreData> scoreComparator;
     private ScoreData[] scoreDataArr;
     private final Button returnButton;
     private JSONMaker json;
 
+    /**
+     * El constructor de la clase. Genera las vistas
+     */
     public ScoreState(){
         returnButton = new Button(
                 Assets.greyButton,
@@ -45,11 +51,19 @@ public class ScoreState extends State{
         Arrays.sort(scoreDataArr, scoreComparator); 
      }
 
+    /**
+     * La funcion que actualiza el boton
+     */
     @Override
     public void update() {
         returnButton.update();
     }
 
+
+    /**
+     * Dibuja las vistas en pantalla
+     * @param g la referencia de la screen donde se mostrarán las vistas
+     */
     @Override
     public void draw(Graphics g) {
         returnButton.draw(g);
