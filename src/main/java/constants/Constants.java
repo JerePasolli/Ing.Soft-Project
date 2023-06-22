@@ -11,6 +11,7 @@ public class Constants {
     public static final int N_BLOCKS = 15;
     public static final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
     public static final int PACMAN_SPEED = 2;
+    public static final int MAX_SCORE_ARRAY_SIZE = 6;
     public static final Font smallFont = new Font("Arial", Font.BOLD, 14);
     public static int N_GHOSTS = 4;
     public static final String JSON_PATH = "scores.json";
