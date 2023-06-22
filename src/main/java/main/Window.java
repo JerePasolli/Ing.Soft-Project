@@ -32,7 +32,7 @@ public class Window extends JFrame implements Runnable{
      */
     public Window(){
         setTitle("PACMAN");
-        setSize(Constants.FRAME_WIDTH+10,Constants.FRAME_HEIGHT+10);
+        setSize(Constants.FRAME_WIDTH+17,Constants.FRAME_HEIGHT+17);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);

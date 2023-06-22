@@ -144,13 +144,23 @@ public class Pacman extends GameObject{
         g.drawImage(texture,x+1,y+1,null);
     }
 
+<<<<<<< HEAD
     /**
      *  Notifica a los fantasmas (observadores) de un cambio en el estado del Pacman.
      */
+=======
+    public Sound getMusic1(){
+        return music1;
+    }
+    public Sound getMusic2(){
+        return music2;
+    }
+>>>>>>> f08e796f28571b36341f5c7542b3ae7cebe0f881
     private void notifyObservers(){
         for(ObserverPowerUp obs : observers){
             obs.setPowerUp(powerUp);
         }
     }
+
 
 }
