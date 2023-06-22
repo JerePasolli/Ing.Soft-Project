@@ -21,6 +21,10 @@ public class AssetsTest {
         assertNotNull(Assets.greyButton);
         assertNotNull(Assets.yellowButton);
         assertNotNull(Assets.backgroundMusic);
+        assertNotNull(Assets.death);
+        assertNotNull(Assets.ghostm);
+        assertNotNull(Assets.eatMusic1);
+        assertNotNull(Assets.eatMusic2);
     }
 
 }
