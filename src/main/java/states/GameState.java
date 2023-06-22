@@ -84,7 +84,6 @@ public class GameState extends State{
     private void reanimatePacman(){
         music= new Sound(Assets.ghostm);
         music.loopClip();
-        score=0;
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
         ghosts = new Ghost(Assets.ghost,this);
    }
