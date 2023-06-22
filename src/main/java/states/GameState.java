@@ -16,7 +16,7 @@ import observer.Observer;
 public class GameState extends State{
 
     private Pacman pacman;
-    private Ghost ghosts;
+    private Ghost ghosts, ghost2;
     private ScoreData scoreData;
     private ArrayList<Observer> observers;
     private short[] screenData;
@@ -61,7 +61,7 @@ public class GameState extends State{
 
     public GameState(){
         initGame();
-        powerUp=false;
+       // powerUp=false;
     }
     private void initGame(){
         music=new Sound(Assets.ghostm);
@@ -71,7 +71,8 @@ public class GameState extends State{
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
         //movingObjects.add(pacman);
       
-        ghosts = new Ghost(Assets.ghost,this);
+        ghosts = new Ghost(Assets.ghost,this, pacman);
+        ghost2 = new  Ghost(Assets.ghost, this, pacman);
         observers = new ArrayList<Observer>();
         screenData = new short[Constants.N_BLOCKS * Constants.N_BLOCKS];
         for (int c = 0; c < Constants.N_BLOCKS * Constants.N_BLOCKS; c++) {
@@ -87,7 +88,8 @@ public class GameState extends State{
         music= new Sound(Assets.ghostm);
         music.loopClip();
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
-        ghosts = new Ghost(Assets.ghost,this);
+        ghosts = new Ghost(Assets.ghost,this, pacman);
+        ghost2 = new  Ghost(Assets.ghost, this, pacman);
    }
 
 
@@ -95,7 +97,7 @@ public class GameState extends State{
     public void update() {
         int i=0;
         boolean finished=true;
-        if(ghosts.getFinished()){
+        if(ghosts.getFinished() || ghost2.getFinished()){
             lives--;
             mdeadth=new Sound(Assets.death);
             music.stop();
@@ -131,6 +133,7 @@ public class GameState extends State{
             }
             pacman.update();
             ghosts.update();
+            ghost2.update();
         }
     }
     //---------------------------DRAW-----------------------------------
@@ -143,6 +146,7 @@ public class GameState extends State{
         }*/
         pacman.draw(g);
         ghosts.draw(g);
+        ghost2.draw(g);
         drawMaze((Graphics2D) g);
         drawScoreAndLives(g);
     }

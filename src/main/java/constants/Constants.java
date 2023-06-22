@@ -13,7 +13,7 @@ public class Constants {
     public static final int PACMAN_SPEED = 2;
     public static final int GHOST_SPEED = 2;
     public static final Font smallFont = new Font("Arial", Font.BOLD, 14);
-    public static int N_GHOSTS = 4;
+    public static int N_GHOSTS = 1;
     public static final String JSON_PATH = "scores.json";
     public static final String PLAY = "PLAY";
     public static final String EXIT = "EXIT";
