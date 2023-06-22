@@ -72,11 +72,11 @@ public class ScoreState extends State{
 
         Vector2D scorePos = new Vector2D(
                 Constants.CANVAS_WIDTH / 2 - 100,
-                100
+                50
         );
         Vector2D datePos = new Vector2D(
                 Constants.CANVAS_WIDTH / 2 + 100,
-                100
+                50
         );
 
         Text.drawText(g, Constants.SCORE, scorePos, true, Color.YELLOW, Assets.fontMed);

@@ -26,9 +26,9 @@ public class Constants {
     public static final String HELP = "HELP";
     public static final String MAIN_MENU = "MAIN MENU";
     public static final String HELPLINE1 = "Controles: Flechas del teclado";
-    public static final String HELPLINE2 = "Objetivo: Comer todos los puntos blancos del escenario";
-    public static final String HELPLINE3 = "Colisionar con un fantasma le hará perder una vida";
-    public static final String HELPLINE4 = "Cuenta con 3 vidas, al perder todas finaliza el juego";
+    public static final String HELPLINE2 = "Objetivo: Comer todos los puntos del escenario";
+    public static final String HELPLINE3 = "Chocar con un fantasma le hará perder una vida";
+    public static final String HELPLINE4 = "Posee 3 vidas, perder todas finaliza el juego";
     public static final String NEW_BEST_MESSAGE = "New Best";
     public static final String MESSAGE_DEFAULT = "Your Score:";
 }
