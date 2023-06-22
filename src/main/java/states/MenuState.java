@@ -3,6 +3,7 @@ package states;
 import constants.Constants;
 import graphics.Assets;
 import graphics.Sound;
+import observer.ObserverPanel;
 import ui.Action;
 import ui.Button;
 
@@ -10,11 +11,21 @@ import javax.swing.ImageIcon;
 import java.awt.*;
 import java.util.ArrayList;
 
+
+/**
+ * Clase que muestra el menu de usuario al jugador
+ */
 public class MenuState extends State {
 
+    /**
+     * Contiene los botones que se muestran en la screen
+     */
     private final ArrayList<Button> buttons;
     private Sound music;
 
+    /**
+     * El constructor de la clase, se generan los botones.
+     */
     public MenuState(){
         buttons = new ArrayList<Button>();
 
@@ -24,7 +35,9 @@ public class MenuState extends State {
                 Constants.PLAY,
                 () -> {
                     music.stop();
-                    State.changeState(new GameState());
+                    GameState gameState = new GameState();
+                    ObserverPanel observerPanel = new ObserverPanel(gameState);
+                    State.changeState(gameState);
                 }
         ));
 
@@ -60,7 +73,7 @@ public class MenuState extends State {
         ));
 
         music = new Sound(Assets.backgroundMusic);
-        music.loopClip();
+        music.play();
     }
 
     @Override
@@ -70,10 +83,27 @@ public class MenuState extends State {
         }
     }
 
+
+    /**
+     * Método que dibuja los botones
+     * @param g el acceso a la screen donde se grafican las vistas
+     */
     @Override
     public void draw(Graphics g) {
         for(Button b: buttons){
             b.draw(g);
         }
+    }
+
+    /**
+     *
+     * @return devuelve una colección con los botones del menú
+     */
+    public ArrayList<Button> getButtons() {
+        return buttons;
+    }
+
+    public Sound getMusic() {
+        return music;
     }
 }

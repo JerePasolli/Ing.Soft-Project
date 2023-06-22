@@ -11,9 +11,9 @@ public class Constants {
     public static final int N_BLOCKS = 15;
     public static final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
     public static final int PACMAN_SPEED = 2;
-    public static final int GHOST_SPEED = 2;
     public static final Font smallFont = new Font("Arial", Font.BOLD, 14);
     public static int N_GHOSTS = 4;
+    public static final String JSON_PATH = "scores.json";
     public static final String PLAY = "PLAY";
     public static final String EXIT = "EXIT";
     public static final String RESUME = "RESUME";
@@ -28,4 +28,6 @@ public class Constants {
     public static final String HELPLINE2 = "Objetivo: Comer todos los puntos blancos del escenario";
     public static final String HELPLINE3 = "Colisionar con un fantasma le hará perder una vida";
     public static final String HELPLINE4 = "Cuenta con 3 vidas, al perder todas finaliza el juego";
+    public static final String NEW_BEST_MESSAGE = "New Best";
+    public static final String MESSAGE_DEFAULT = "Your Score:";
 }
