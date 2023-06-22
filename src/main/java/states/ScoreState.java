@@ -49,7 +49,9 @@ public class ScoreState extends State{
         this.json = JSONMaker.getInstance();
         this.scoreDataArr = json.getScoreData().toArray(new ScoreData[json.getScoreData().size()]);  
         Arrays.sort(scoreDataArr, scoreComparator); 
+        if(scoreDataArr.length > 5) scoreDataArr = Arrays.copyOfRange(scoreDataArr, scoreDataArr.length - 5, scoreDataArr.length); 
      }
+
 
     /**
      * La funcion que actualiza el boton

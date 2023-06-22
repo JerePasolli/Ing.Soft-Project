@@ -2,7 +2,6 @@ package io;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Scanner;
 
 import constants.Constants;
@@ -15,7 +14,7 @@ public class JSONMaker {
     private String bestDate;
     private Integer bestScore;
     private boolean isBest;
-    private HashSet<ScoreData> scoreDataList;
+    private ArrayList<ScoreData> scoreDataList;
 
     private static JSONMaker instance;
 
@@ -24,7 +23,7 @@ public class JSONMaker {
      */
     private JSONMaker(){
         json = new File(Constants.JSON_PATH);
-        scoreDataList = new HashSet<ScoreData>();
+        scoreDataList = new ArrayList<ScoreData>();
         read();
         readScores();
     }
@@ -140,7 +139,7 @@ public class JSONMaker {
      *  Retorna la lista con los mejores scores registrados.
      *  @return arrayList de los mejores scores
      */
-    public HashSet<ScoreData> getScoreData(){
+    public ArrayList<ScoreData> getScoreData(){
         return this.scoreDataList;
     }
   
