@@ -11,7 +11,7 @@ public abstract class State {
     }
     public static void changeState(State newState){
         try{
-            Thread.sleep(100);
+            Thread.sleep(200);
         }
         catch(InterruptedException e){
             e.printStackTrace();

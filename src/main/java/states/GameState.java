@@ -23,6 +23,7 @@ public class GameState extends State{
     private Sound music,mdeadth;
     private int score = 0;
     private int lives = 3;
+    private boolean powerUp;
     /*private final short[] levelData2 = {
             19, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 22,
             17, 16, 16, 16, 16, 24, 16, 16, 16, 16, 16, 16, 16, 16, 20,
@@ -42,7 +43,7 @@ public class GameState extends State{
     };*/
     private final short[] levelData = {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 19, 26, 26, 18, 26, 22, 0, 19, 26, 18, 26, 26, 22, 0,
+            0, 35, 26, 26, 18, 26, 22, 0, 19, 26, 18, 26, 26, 38, 0,
             0, 21, 0, 0, 21, 0, 21, 0, 21, 0, 21, 0, 0, 21, 0,
             0, 17,  26,  26,  16,  26, 24, 26, 24, 26, 16, 26, 26, 20, 0,
             0, 21, 0, 0, 21, 0, 0, 0, 0, 0, 21, 0, 0, 21, 0,
@@ -54,12 +55,13 @@ public class GameState extends State{
             0, 21,  0,  0,  1,  10,  10,   10, 10, 10, 4, 0, 0, 21, 0,
             0, 17, 26, 26, 20, 0, 0, 0, 0, 0, 17,26,26, 20, 0,
             0, 21, 0, 0, 21, 0, 0, 0, 0, 0, 21, 0, 0, 21, 0,
-            0, 25, 26, 26, 24, 26, 30, 0, 27, 26, 24, 26, 26, 28, 0,
+            0, 41, 26, 26, 24, 26, 26, 26, 26, 26, 24, 26, 26, 44, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
     public GameState(){
         initGame();
+        powerUp=false;
     }
     private void initGame(){
         music=new Sound(Assets.ghostm);
@@ -118,7 +120,7 @@ public class GameState extends State{
             i++;
         }
         if(finished || lives==0){
-            //score+=50;
+            addScore(lives*10);
             music.stop();
             //State.changeState(new NewBestState(this.scoreData));
             observers.get(0).update(true);
@@ -192,6 +194,10 @@ public class GameState extends State{
                     g2d.setColor(Color.WHITE);
                     g2d.fillOval(x + 10, y + 10, 6, 6);
                 }
+                if ((screenData[i] & 32) != 0) {
+                    g2d.setColor(Color.ORANGE);
+                    g2d.fillOval(x + 10, y + 10, 12, 12);
+                }
 
                 i++;
             }
@@ -227,5 +233,12 @@ public class GameState extends State{
     }
     public ScoreData getScoreData(){
         return scoreData;
+    }
+
+    public void setPowerUp(boolean powerUp){
+        this.powerUp=powerUp;
+    }
+    public boolean getPowerUp(){
+        return powerUp;
     }
 }

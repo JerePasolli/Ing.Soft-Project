@@ -8,7 +8,7 @@ public class ObserverPanel implements Observer{
 
     private GameState subject;
     private NewBestState panel;
-    private boolean dead;
+    private boolean finish;
 
     public ObserverPanel(GameState subject){
         this.subject = subject;
@@ -16,9 +16,9 @@ public class ObserverPanel implements Observer{
     }
 
     @Override
-    public void update(boolean dead){
-        this.dead = dead;
-        if(isDead()){
+    public void update(boolean finish){
+        this.finish = finish;
+        if(isFinish()){
             panel = new NewBestState(subject.getScoreData());
             State.changeState(panel);
         }
@@ -28,7 +28,7 @@ public class ObserverPanel implements Observer{
         subject.register(this);
     }
 
-    private boolean isDead(){
-        return dead;
+    private boolean isFinish(){
+        return finish;
     }
 }

@@ -40,6 +40,10 @@ public class Ghost {
         }
 
     }
+    
+    public void move(){
+
+    }
 
 
     public void update() {

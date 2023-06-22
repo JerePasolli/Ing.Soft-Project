@@ -1,6 +1,6 @@
 package observer;
 
 public interface Observer {
-    public void update(boolean dead);
+    public void update(boolean finish);
 
 }
