@@ -4,22 +4,31 @@ import graphics.Assets;
 import graphics.Sound;
 import input.KeyBoard;
 import constants.Constants;
+import observer.ObserverPowerUp;
 import states.GameState;
 
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Pacman extends GameObject{
     private int req_dx,req_dy;
     private Sound music1,music2;
+    private ArrayList<Ghost> observers;
     private boolean bn;
+    private boolean powerUp;
     public Pacman(int pacman_x,int pacman_y,Image texture,GameState gameState){
         super(pacman_x,pacman_y,texture,gameState);
         this.dx=0;
         this.dy=0;
         music1 = new Sound(Assets.eatMusic1);
         music2 = new Sound(Assets.eatMusic2);
-        
+        observers = new ArrayList<Ghost>();
+        powerUp = false;
+    }
+
+    public void registerObserver(Ghost ghost){
+        observers.add(ghost);
     }
 
     public void update(){
@@ -44,6 +53,7 @@ public class Pacman extends GameObject{
             req_dy=1;
         }
         movePacman();
+        notifyObservers();
     }
     public void movePacman(){
         int pos;
@@ -69,6 +79,18 @@ public class Pacman extends GameObject{
                 gameState.setScreenData(pos,(short)(ch & 31));
                 gameState.addScore(5);
                 //aca setear el power up a 1
+                powerUp = true;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        powerUp = false;
+                    }
+                }).start();
             }
 
             if (req_dx != 0 || req_dy != 0) {
@@ -92,16 +114,24 @@ public class Pacman extends GameObject{
         } 
         this.x = this.x + Constants.PACMAN_SPEED * dx;
         this.y = this.y + Constants.PACMAN_SPEED * dy;
+
     }
     public void draw(Graphics g){
         g.drawImage(texture,x+1,y+1,null);
     }
+
 
     public Sound getMusic1(){
         return music1;
     }
     public Sound getMusic2(){
         return music2;
+
+    private void notifyObservers(){
+        for(ObserverPowerUp obs : observers){
+            obs.setPowerUp(powerUp);
+        }
+
     }
 
 }

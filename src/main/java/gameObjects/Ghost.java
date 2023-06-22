@@ -1,27 +1,29 @@
 package gameObjects;
 
 import constants.Constants;
-import graphics.Assets;
-import graphics.Sound;
-import math.Vector2D;
+import observer.ObserverPowerUp;
 import states.GameState;
+import strategy.MoveNormal;
+import strategy.MovePowerUp;
+import strategy.MovementStrategy;
 
-import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
-public class Ghost {
+public class Ghost implements ObserverPowerUp {
     private final int[] ghost_x, ghost_y, ghost_dx, ghost_dy, ghostSpeed;
-    private final int[] validSpeeds = {1, 1, 2, 2};
+    private final int[] validSpeeds = {1,1,2,2};
     private final int[] dx, dy;
     private final GameState gameState;
-    private final Image texture;
+   // private final Image texture;
     private boolean finished;
+    private Pacman subject;
+    private boolean powerUp;
+    private MovementStrategy movementStrategy;
 
-    public Ghost(Image texture,GameState gameState) {
+    public Ghost(Image texture,GameState gameState, Pacman subject) {
         int x = 1;
         finished=false;
-        this.texture = texture;
+       // this.texture = texture;
         this.gameState = gameState;
         ghost_x = new int[Constants.N_GHOSTS];
         ghost_dx = new int[Constants.N_GHOSTS];
@@ -31,6 +33,9 @@ public class Ghost {
         dx = new int[4];
         dy = new int[4];
 
+        this.subject = subject;
+        movementStrategy = new MoveNormal(ghost_x, ghost_y);
+
         for (int i = 0; i < Constants.N_GHOSTS; i++) {
             ghost_y[i] = 7 * Constants.BLOCK_SIZE; //start position
             ghost_x[i] = 7 * Constants.BLOCK_SIZE;
@@ -39,15 +44,19 @@ public class Ghost {
             x = -x;
         }
 
+        registerObserver();
+
+    }
+
+    public void setPowerUp(boolean p){
+        powerUp = p;
+    }
+
+    public void registerObserver(){
+        subject.registerObserver(this);
     }
     
     public void move(){
-
-    }
-
-
-    public void update() {
-
         int pos;
         int count;
 
@@ -106,23 +115,54 @@ public class Ghost {
 
             }
 
-            ghost_x[i] = ghost_x[i] + (ghost_dx[i] * ghostSpeed[i]);
+           ghost_x[i] = ghost_x[i] + (ghost_dx[i] * ghostSpeed[i]);
             ghost_y[i] = ghost_y[i] + (ghost_dy[i] * ghostSpeed[i]);
 
             if(gameState.getPacman().getX()>(ghost_x[i]-12) && gameState.getPacman().getX()<(ghost_x[i]+12)
-                && gameState.getPacman().getY()>(ghost_y[i]-12) && gameState.getPacman().getY()<(ghost_y[i]+12)){
-                    finished=true;  
+                    && gameState.getPacman().getY()>(ghost_y[i]-12) && gameState.getPacman().getY()<(ghost_y[i]+12)){
+                if(!powerUp){
+                    finished=true;
+                }else{
+                    finished = false;
+                    ghost_x[i] = 7 * Constants.BLOCK_SIZE;
+                    ghost_y[i] = 7 * Constants.BLOCK_SIZE;
+                    powerUp = false;
+                    this.movementStrategy = new MoveNormal(ghost_x, ghost_y);
+                    gameState.addScore(5);
                 }
+            }
 
         }
+    }
+
+
+    public void update() {
+        if(!powerUp){
+            movementStrategy = new MoveNormal(ghost_x, ghost_y);
+            System.out.println("no power");
+        }else{
+            movementStrategy = new MovePowerUp(ghost_x, ghost_y);
+        }
+        move();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000);
+                    powerUp = false;
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }).start();
 
     }
 
 
     public void draw(Graphics g) {
-        for(int i = 0; i < Constants.N_GHOSTS; i++){
-            g.drawImage(texture, ghost_x[i] + 1, ghost_y[i] + 1, null);
-        }
+        movementStrategy.changeColor(g);
 
     }
     public boolean getFinished(){
