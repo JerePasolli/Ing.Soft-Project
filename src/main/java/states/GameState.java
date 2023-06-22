@@ -150,7 +150,7 @@ public class GameState extends State{
     private void drawScoreAndLives(Graphics g) {
         g.setFont(Constants.smallFont);
         g.setColor(new Color(5, 181, 79));
-        String s = "Score: " + score;
+        String s = "score: " + score;
         g.drawString(s, Constants.SCREEN_SIZE / 2 + 96, Constants.SCREEN_SIZE + 16);
 
         for (int i = 0; i < lives; i++) {
