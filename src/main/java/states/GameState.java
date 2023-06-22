@@ -117,12 +117,7 @@ public class GameState extends State{
         music= new Sound(Assets.ghostm);
         music.loopClip();
         pacman = new Pacman(7*Constants.BLOCK_SIZE,10*Constants.BLOCK_SIZE,Assets.right,this);
-<<<<<<< HEAD
         ghosts = new Ghost(this, pacman);
-=======
-        ghosts = new Ghost(Assets.ghost,this, pacman);
-
->>>>>>> f08e796f28571b36341f5c7542b3ae7cebe0f881
    }
 
     /**

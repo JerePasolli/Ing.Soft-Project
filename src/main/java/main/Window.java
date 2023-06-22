@@ -32,7 +32,7 @@ public class Window extends JFrame implements Runnable{
      */
     public Window(){
         setTitle("PACMAN");
-        setSize(Constants.FRAME_WIDTH+17,Constants.FRAME_HEIGHT+17);
+        setSize(Constants.FRAME_WIDTH,Constants.FRAME_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -82,23 +82,11 @@ public class Window extends JFrame implements Runnable{
         g = bs.getDrawGraphics();
         //-----------------------------------
 
-        //Graphics2D g2d = (Graphics2D) g;
-        //drawMaze(g2d);
-        // llamar a drawMaze(), ya que aca se dibuja
-        //g.setColor(Color.BLACK);
-        //g.fillRect(0, 0, WIDTH, HEIGHT);
-
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, Constants.CANVAS_WIDTH+10, Constants.CANVAS_HEIGHT+10);
-        //g.setColor(Color.WHITE);
-        //g.drawString(""+AVGFPS, 10, 20);
-        //g.drawImage(Assets.up, 100, 100, null);
 
         State.getCurrentState().draw(g);
 
-        //g.drawString("holaque tal",45,45);
-        //g.clearRect(0, 0, WIDTH, HEIGHT);
-        //g.drawRect(x,0,100,100);
         //-----------------------------------
         //zona de dibujo arriba
         g.dispose();
