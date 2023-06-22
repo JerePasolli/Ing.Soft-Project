@@ -1,9 +1,12 @@
 plugins {
     id 'java'
     id 'application'
+    id 'jacoco'
 }
 
-mainClassName = 'main.Window'
+application{
+    mainClass = 'main.Window'
+}
 
 repositories {
     mavenCentral()
@@ -16,10 +19,4 @@ dependencies {
 
 test {
     useJUnitPlatform()
-}
-
-jar{
-    manifest{
-        attributes('Main-Class':'main.Window')
-    }
 }
