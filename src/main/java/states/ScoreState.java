@@ -40,7 +40,7 @@ public class ScoreState extends State{
             }
             
         };
-        this.json = new JSONMaker();
+        this.json = JSONMaker.getInstance();
         this.scoreDataArr = json.getScoreData().toArray(new ScoreData[json.getScoreData().size()]);  
         Arrays.sort(scoreDataArr, scoreComparator); 
      }
