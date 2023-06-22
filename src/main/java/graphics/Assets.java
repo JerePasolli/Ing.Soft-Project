@@ -33,7 +33,7 @@ public class Assets {
         ghost = Loader.ImageLoader("./src/main/resources/images/ghost.gif");
         heart = Loader.ImageLoader("./src/main/resources/images/heart.png");
         fontBig = Loader.FontLoader("./src/main/resources/fonts/Pacmania.ttf",42);
-        fontMed = Loader.FontLoader("./src/main/resources/fonts/8-BIT WONDER.TTF",15);
+        fontMed = Loader.FontLoader("./src/main/resources/fonts/Pacmania.ttf",15);
         fontSmall = Loader.FontLoader("./src/main/resources/fonts/Pacmania.ttf",10);
         greyButton = Loader.ImageLoader("./src/main/resources/ui/grey_button00.png");
         yellowButton = Loader.ImageLoader("./src/main/resources/ui/yellow_button00.png");

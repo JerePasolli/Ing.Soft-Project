@@ -68,10 +68,10 @@ public class HelpState extends State{
                 250
         );
 
-        Text.drawText(g, Constants.HELP, helpTitlePos, true, Color.BLUE, Assets.fontMed);
-        Text.drawText(g, Constants.HELPLINE1, help1Pos, true, Color.BLUE, Assets.fontSmall);
-        Text.drawText(g, Constants.HELPLINE2, help2Pos, true, Color.BLUE, Assets.fontSmall);
-        Text.drawText(g, Constants.HELPLINE3, help3Pos, true, Color.BLUE, Assets.fontSmall);
-        Text.drawText(g, Constants.HELPLINE4, help4Pos, true, Color.BLUE, Assets.fontSmall);
+        Text.drawText(g, Constants.HELP, helpTitlePos, true, Color.YELLOW, Assets.fontMed);
+        Text.drawText(g, Constants.HELPLINE1, help1Pos, true, Color.YELLOW, Assets.fontSmall);
+        Text.drawText(g, Constants.HELPLINE2, help2Pos, true, Color.YELLOW, Assets.fontSmall);
+        Text.drawText(g, Constants.HELPLINE3, help3Pos, true, Color.YELLOW, Assets.fontSmall);
+        Text.drawText(g, Constants.HELPLINE4, help4Pos, true, Color.YELLOW, Assets.fontSmall);
     }
 }
