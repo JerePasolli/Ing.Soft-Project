@@ -10,10 +10,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+
+/**
+ * Clase que se encarga de mostrar el menu de ayuda al jugador
+ */
 public class HelpState extends State{
 
     private final Button returnButton;
 
+
+    /**
+     * El constructor
+     */
     public HelpState(){
         returnButton = new Button(
                 Assets.greyButton,
@@ -30,6 +38,11 @@ public class HelpState extends State{
         returnButton.update();
     }
 
+
+    /**
+     * Dibuja en pantalla las vistas
+     * @param g la referencia a la screen donde se dibujan las vistas
+     */
     @Override
     public void draw(Graphics g) {
         returnButton.draw(g);

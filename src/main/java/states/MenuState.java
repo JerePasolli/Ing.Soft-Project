@@ -10,11 +10,21 @@ import javax.swing.ImageIcon;
 import java.awt.*;
 import java.util.ArrayList;
 
+
+/**
+ * Clase que muestra el menu de usuario al jugador
+ */
 public class MenuState extends State {
 
+    /**
+     * Contiene los botones que se muestran en la screen
+     */
     private final ArrayList<Button> buttons;
     private Sound music;
 
+    /**
+     * El constructor de la clase, se generan los botones.
+     */
     public MenuState(){
         buttons = new ArrayList<Button>();
 
@@ -71,12 +81,22 @@ public class MenuState extends State {
         }
     }
 
+
+    /**
+     * Método que dibuja los botones
+     * @param g el acceso a la screen donde se grafican las vistas
+     */
     @Override
     public void draw(Graphics g) {
         for(Button b: buttons){
             b.draw(g);
         }
     }
+
+    /**
+     *
+     * @return devuelve una colección con los botones del menú
+     */
     public ArrayList<Button> getButtons() {
         return buttons;
     }

@@ -14,6 +14,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+
+/**
+ * Clase que se encarga de mostrar el panel que indica el puntaje obtenido por el jugador
+ */
 public class NewBestState extends State{
 
 private ScoreData newBest;
@@ -21,6 +25,10 @@ private JSONMaker jsonMaker;
 private final Button returnButton;
 
 
+    /**
+     * El constructor de la clase, se genera el boton de return y el creador de JSON
+     * @param scoreData el puntaje obtenido
+     */
     public NewBestState(ScoreData scoreData){
 
       returnButton = new Button(
@@ -42,6 +50,11 @@ private final Button returnButton;
         returnButton.update();
     }
 
+
+    /**
+     * Dibuja las vistas en la pantalla
+     * @param g el acceso a la screen donde se colocan las vistas
+     */
     @Override
     public void draw(Graphics g) {
 
