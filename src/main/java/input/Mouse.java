@@ -9,6 +9,10 @@ public class Mouse extends MouseAdapter {
     public static int x, y;
     public static boolean mouseLeftButton;
 
+    /**
+     *  Identifica que boton del mouse se presiona.
+     *  @param e boton presionado del mouse
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         if(e.getButton() == MouseEvent.BUTTON1){
@@ -16,6 +20,10 @@ public class Mouse extends MouseAdapter {
         }
     }
 
+    /**
+     *  Identifica que boton del mouse se suelta.
+     *  @param e boton soltado del mouse
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         if(e.getButton() == MouseEvent.BUTTON1){
@@ -23,12 +31,20 @@ public class Mouse extends MouseAdapter {
         }
     }
 
+    /**
+     *  Identifica que boton del mouse se mantiene presionado al mover el mouse.
+     *  @param e boton presionado mientras se arrastra el mouse
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
         x = e.getX();
         y = e.getY();
     }
 
+    /**
+     *  Identifica movimientos del mouse.
+     *  @param e coordenadas de movimiento del mouse
+     */
     @Override
     public void mouseMoved(MouseEvent e) {
         x = e.getX();

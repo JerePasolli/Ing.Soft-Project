@@ -8,6 +8,8 @@
 bin
 build
 
+#json files
+*.json
 #Vscode files
 .vscode
 

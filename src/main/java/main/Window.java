@@ -26,6 +26,10 @@ public class Window extends JFrame implements Runnable{
     private int lives = 3;
     private int score = 0;
 
+    /**
+     * Constructor de la clase. Setea los parámetros para la ventana (JFrame) y el canvas donde se va a dibujar.
+     * Además setea los "listeners" para mouse y teclado.
+     */
     public Window(){
         setTitle("PACMAN");
         setSize(Constants.FRAME_WIDTH+10,Constants.FRAME_HEIGHT+10);
@@ -48,15 +52,25 @@ public class Window extends JFrame implements Runnable{
         setVisible(true);
     }
 
+    /**
+     *  Se crea la ventana y se da inicio al juego.
+     */
     public static void main(String[] args){
         new Window().start();
     }
 
+    /**
+     *  Este metodo se encarga de actualizar constantemente la pantalla en la que se encuentre el usuario (State).
+     *  Además actualiza la entrada por teclado.
+     */
     private void update(){
         keyBoard.update();
         State.getCurrentState().update();
     }
 
+    /**
+     *  Se dibuja y muestra el canvas. Segun el estado en el que se encuentre el juego será lo que se dibujará.
+     */
     private void draw(){
         bs = canvas.getBufferStrategy();
 
@@ -91,12 +105,21 @@ public class Window extends JFrame implements Runnable{
         bs.show();
     }
 
+    /**
+     *  Carga los recursos del juego, tales como imágenes, fuentes y sonidos. Además da inicio al juego
+     *  creando el estado inicial, es decir "MenuState".
+     */
     private void init(){
         Assets.init(); //se cargan todos los recursos
         State.changeState(new MenuState());
     }
 
 
+    /**
+     *  En este método run se lleva el conteo del tiempo para garantizar 60 frames por segundo, y se invoca
+     *  60 veces por segundo los métodos update y draw (que actualizarán y dibujarán lo qque corresponda según)
+     *  el estado.
+     */
     @Override
     public void run(){
 
@@ -130,12 +153,19 @@ public class Window extends JFrame implements Runnable{
         stop();
     }
 
+    /**
+     *  Se crea un nuevo hilo para encargarse de la lógica del juego, se crea el hilo, se lanza, y se pone la bandera
+     *  de "running" en "true".
+     */
     private void start(){
         thread = new Thread(this);
         thread.start(); // lanza el run()
         running = true;
     }
 
+    /**
+     *  Detiene la ejecución del juego
+     */
     private void stop(){
         try {
             thread.join();

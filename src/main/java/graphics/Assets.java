@@ -22,6 +22,9 @@ public class Assets {
     public static Clip eatMusic1,eatMusic2,ghostm,death;
     public static Image blueGhost;
 
+    /**
+     *  Carga todos los recursos del juego.
+     */
     public static void init(){
         down = Loader.ImageLoader("./src/main/resources/images/down.gif");
         up = Loader.ImageLoader("./src/main/resources/images/up.gif");

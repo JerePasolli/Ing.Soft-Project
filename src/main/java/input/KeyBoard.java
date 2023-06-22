@@ -7,6 +7,10 @@ public class KeyBoard implements KeyListener {
 
     private final boolean[] keys = new boolean[256];
     public static boolean UP, DOWN, LEFT, RIGHT, ESCAPE, SPACE;
+
+    /**
+     *  Constructor de la clase, setea las teclas de control en "false".
+     */
     public KeyBoard(){
         UP = false;
         DOWN = false;
@@ -17,6 +21,9 @@ public class KeyBoard implements KeyListener {
 
     }
 
+    /**
+     *  Actualiza el estado de la entrada por teclado por parte del usuario.
+     */
     public void update(){
         UP = keys[KeyEvent.VK_UP];
         DOWN = keys[KeyEvent.VK_DOWN];
@@ -26,11 +33,19 @@ public class KeyBoard implements KeyListener {
         SPACE = keys[KeyEvent.VK_SPACE];
     }
 
+    /**
+     *  Identifica que tecla se presiona del teclado.
+     *  @param e tecla presionada del teclado
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         keys[e.getKeyCode()] = true;
     }
 
+    /**
+     *  Identifica que tecla se deja de presionar del teclado.
+     *  @param e tecla soltada del teclado
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         keys[e.getKeyCode()] = false;
