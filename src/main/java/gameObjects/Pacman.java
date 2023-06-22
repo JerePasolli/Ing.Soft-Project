@@ -65,6 +65,11 @@ public class Pacman extends GameObject{
                     bn=!bn;
                 }
             }
+            if((ch & 32)!=0){
+                gameState.setScreenData(pos,(short)(ch & 31));
+                gameState.addScore(5);
+                //aca setear el power up a 1
+            }
 
             if (req_dx != 0 || req_dy != 0) {
                 if (!((req_dx == -1 && req_dy == 0 && (ch & 1) != 0)
