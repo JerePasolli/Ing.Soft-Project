@@ -33,7 +33,7 @@ private final Button returnButton;
         );
 
       this.newBest = scoreData;
-      jsonMaker = new JSONMaker();
+      jsonMaker = JSONMaker.getInstance();
       jsonMaker.write(scoreData.getDate(), scoreData.getScore());
     }
 

@@ -17,13 +17,22 @@ public class JSONMaker {
     private boolean isBest;
     private ArrayList<ScoreData> scoreDataList;
 
-    public JSONMaker(){
+    private static JSONMaker instance;
+
+    private JSONMaker(){
         json = new File(Constants.JSON_PATH);
         scoreDataList = new ArrayList<ScoreData>();
         read();
         readScores();
     }
  
+
+    public static JSONMaker getInstance(){
+        if(instance == null){
+            instance = new JSONMaker();
+        }
+        return instance;
+    }
 
     private void addScore(String name, int score){
         lines.add("\t{\n" + "\t\t" + "\"" + name + "\"" + ": " + score + "\n\t}");
