@@ -14,7 +14,6 @@ public class Ghost implements ObserverPowerUp {
     private final int[] validSpeeds = {1,1,2,2};
     private final int[] dx, dy;
     private final GameState gameState;
-   // private final Image texture;
     private boolean finished;
     private Pacman subject;
     private boolean powerUp;
@@ -156,7 +155,6 @@ public class Ghost implements ObserverPowerUp {
     public void update() {
         if(!powerUp){
             movementStrategy = new MoveNormal(ghost_x, ghost_y);
-            System.out.println("no power");
         }else{
             movementStrategy = new MovePowerUp(ghost_x, ghost_y);
         }

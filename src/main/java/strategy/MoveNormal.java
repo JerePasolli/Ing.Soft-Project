@@ -26,7 +26,6 @@ public class MoveNormal implements MovementStrategy{
     public void changeColor(Graphics g){
         for(int i = 0; i < Constants.N_GHOSTS; i++){
             g.drawImage(Assets.ghost, ghost_x[i] + 1, ghost_y[i] + 1, null);
-            System.out.println("-------------------");
         }
     }
 }

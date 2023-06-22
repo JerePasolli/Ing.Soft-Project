@@ -3,6 +3,7 @@ package states;
 import constants.Constants;
 import graphics.Assets;
 import graphics.Sound;
+import observer.ObserverPanel;
 import ui.Action;
 import ui.Button;
 
@@ -35,6 +36,7 @@ public class MenuState extends State {
                 () -> {
                     music.stop();
                     GameState gameState = new GameState();
+                    ObserverPanel observerPanel = new ObserverPanel(gameState);
                     State.changeState(gameState);
                 }
         ));
