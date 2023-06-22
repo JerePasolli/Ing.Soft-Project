@@ -1,4 +1,4 @@
-import graphics.Loader;
+package graphics;
 
 import org.junit.jupiter.api.Test;
 

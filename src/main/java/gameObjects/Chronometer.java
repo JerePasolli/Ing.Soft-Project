@@ -33,5 +33,11 @@ public class Chronometer {
     public boolean isRunning(){
         return running;
     }
+    public Long getTime(){
+        return time;
+    }
+    public Long getLastTime(){
+        return lastTime;
+    }
 
 }

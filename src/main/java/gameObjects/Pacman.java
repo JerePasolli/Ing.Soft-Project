@@ -120,10 +120,17 @@ public class Pacman extends GameObject{
         g.drawImage(texture,x+1,y+1,null);
     }
 
+    public Sound getMusic1(){
+        return music1;
+    }
+    public Sound getMusic2(){
+        return music2;
+    }
     private void notifyObservers(){
         for(ObserverPowerUp obs : observers){
             obs.setPowerUp(powerUp);
         }
     }
+
 
 }
